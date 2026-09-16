@@ -1,0 +1,93 @@
+/* TaxisDispatch - Main Stylesheet */
+:root {
+    --primary: #ffc107;
+    --dark: #1a1a2e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+}
+
+.stat-card {
+    min-width: 100px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Booking form */
+.card {
+    border-radius: 12px !important;
+}
+.card-body {
+    border-radius: 12px;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: 8px;
+    border-color: #dee2e6;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+/* Buttons */
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.btn-warning:hover {
+    background-color: #ffca2c;
+    transform: translateY(-1px);
+}
+
+/* Info boxes */
+.info-box {
+    border-left: 3px solid #ffc107;
+}
+
+/* Progress steps */
+.progress-steps .rounded-circle {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section { min-height: auto; padding: 40px 0; }
+    .hero-stats { justify-content: center !important; flex-wrap: wrap; }
+    .stat-card { min-width: 80px; }
+}
+
+/* Admin specific */
+.badge { font-size: 0.8em; }
+.btn-xs { padding: 0.15rem 0.5rem; font-size: 0.75rem; }
+
+/* DataTables override */
+.dataTables_wrapper .dataTables_filter input {
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    padding: 4px 8px;
+}

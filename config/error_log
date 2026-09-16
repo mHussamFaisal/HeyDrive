@@ -1,0 +1,256 @@
+[23-Dec-2025 02:27:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:43:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:57:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:57:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[06-Apr-2026 19:57:40 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/eto.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto.php on line 32
+[06-Apr-2026 19:57:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:57:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:57:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:57:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[06-Apr-2026 19:58:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/app.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/app.php on line 8
+[06-Apr-2026 19:58:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/site.php:189
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/site.php on line 189
+[06-Apr-2026 20:02:18 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[19-Apr-2026 02:47:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[19-Apr-2026 02:47:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/mail.php on line 19
+[19-Apr-2026 07:42:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[19-Apr-2026 07:42:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/mail.php on line 19
+[19-Apr-2026 07:42:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/app.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/app.php on line 8
+[19-Apr-2026 07:42:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/broadcasting.php on line 18
+[19-Apr-2026 07:42:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/auth.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/auth.php on line 5
+[19-Apr-2026 07:42:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[19-Apr-2026 07:42:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/cache.php on line 18
+[19-Apr-2026 07:42:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/session.php on line 19
+[19-Apr-2026 07:42:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/versjspr/taxisdispatch.com/config/filesystems.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/filesystems.php on line 47
+[08-Jul-2026 17:17:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[12-Aug-2026 20:37:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php on line 8
+[12-Aug-2026 22:05:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/app.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/app.php on line 8
+[12-Aug-2026 23:23:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/eto.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto.php on line 32
+[13-Aug-2026 04:02:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/auth.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/auth.php on line 5
+[13-Aug-2026 12:06:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/broadcasting.php on line 18
+[15-Aug-2026 08:46:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/debugbar.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/debugbar.php on line 15
+[15-Aug-2026 12:06:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/mail.php on line 19
+[15-Aug-2026 13:00:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/eto.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto.php on line 32
+[15-Aug-2026 13:49:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function base_path() in /home/versjspr/taxisdispatch.com/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/view.php on line 17
+[15-Aug-2026 16:03:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/cache.php on line 18
+[16-Aug-2026 03:12:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/logviewer.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/logviewer.php on line 13
+[16-Aug-2026 05:44:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[16-Aug-2026 11:22:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Validation\Rule' not found in /home/versjspr/taxisdispatch.com/config/eto_installer.php:23
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto_installer.php on line 23
+[16-Aug-2026 11:59:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/queue.php on line 18
+[16-Aug-2026 12:11:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[16-Aug-2026 12:39:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/app.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/app.php on line 8
+[16-Aug-2026 12:53:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/versjspr/taxisdispatch.com/config/excel.php:57
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/excel.php on line 57
+[16-Aug-2026 13:27:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/session.php on line 19
+[16-Aug-2026 14:44:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php on line 8
+[16-Aug-2026 17:42:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/versjspr/taxisdispatch.com/config/filesystems.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/filesystems.php on line 47
+[16-Aug-2026 19:23:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/roles.php:57
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/roles.php on line 57
+[03-Sep-2026 11:56:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/broadcasting.php on line 18
+[03-Sep-2026 15:58:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/site.php:189
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/site.php on line 189
+[03-Sep-2026 20:29:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/auth.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/auth.php on line 5
+[14-Sep-2026 08:38:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/debugbar.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/debugbar.php on line 15
+[14-Sep-2026 12:13:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/mail.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/mail.php on line 19
+[14-Sep-2026 13:04:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/eto.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto.php on line 32
+[14-Sep-2026 13:35:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function base_path() in /home/versjspr/taxisdispatch.com/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/view.php on line 17
+[14-Sep-2026 15:41:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/cache.php on line 18
+[15-Sep-2026 03:08:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/logviewer.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/logviewer.php on line 13
+[15-Sep-2026 06:41:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/services.php on line 18
+[15-Sep-2026 11:21:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Validation\Rule' not found in /home/versjspr/taxisdispatch.com/config/eto_installer.php:23
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/eto_installer.php on line 23
+[15-Sep-2026 11:51:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/queue.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/queue.php on line 18
+[15-Sep-2026 12:06:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/database.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/database.php on line 29
+[15-Sep-2026 13:36:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/app.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/app.php on line 8
+[15-Sep-2026 14:06:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/versjspr/taxisdispatch.com/config/excel.php:57
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/excel.php on line 57
+[15-Sep-2026 15:06:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/session.php on line 19
+[15-Sep-2026 16:06:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/laravel-activitylog.php on line 8
+[15-Sep-2026 18:07:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/versjspr/taxisdispatch.com/config/filesystems.php:47
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/filesystems.php on line 47
+[15-Sep-2026 19:28:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function eto_config() in /home/versjspr/taxisdispatch.com/config/roles.php:57
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/config/roles.php on line 57

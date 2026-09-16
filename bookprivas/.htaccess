@@ -1,0 +1,46 @@
+# Use PHP71 as default
+#AddHandler application/x-httpd-php71 .php
+<IfModule mod_suphp.c>
+#    suPHP_ConfigPath /opt/php71/lib
+</IfModule>
+
+
+### ETO configuration, do not change
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /
+
+    # Disable directory indexes
+    Options -Indexes
+
+    # Disable multi views
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    # Prevent Direct Access to Protected Files
+    <FilesMatch "(?i)(^artisan$|\.env|\.env\.example|config\.php|\.log|tracking.json)">
+        Order deny,allow
+        Deny from all
+    </FilesMatch>
+
+    # Prevent Direct Access To Protected Folders
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|backups|tmp|uploads/safe)/(.*) / [L,R=301]
+
+    # Prevent Direct Access To modules/vendor Folders Except Assets
+    RewriteRule ^(modules|vendor)/(.*)\.((?!ico|gif|jpg|jpeg|png|js|css|less|sass|font|woff|woff2|eot|ttf|svg).)*$ / [L,R=301]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+### END ETO configuration, do not change

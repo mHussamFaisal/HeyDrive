@@ -1,0 +1,2673 @@
+/*
+Copyright (c) 2020 by EasyTaxiOffice - All Rights Reserved
+Website: https://easytaxioffice.com
+Email:   support@easytaxioffice.com
+*/
+@import url('//fonts.googleapis.com/css?family=Roboto:300,400');
+/*̣ Dispatch */
+#dispatch {
+  height: 100vh;
+  width: 100%;
+}
+#dispatch .dispatch-create {
+  height: 100%;
+}
+#dispatch .dispatch-drivers {
+  padding: initial;
+  height: 100%;
+}
+#dispatch .dispatch-drivers-map {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#dispatch #map-find-driver {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+}
+#dispatch .dispatch-create {
+  overflow-y: auto;
+}
+#dispatch .dispatch-top {
+  height: 60vh;
+}
+#dispatch .dispatch-bottom {
+  height: 40vh;
+  background: #fff;
+}
+#dispatch .dispatch-bottom div.dt-buttons {
+  float: initial !important;
+}
+#dispatch .buttons-reload #reload-counter {
+  display: inline-block;
+  position: absolute;
+  top: -4px;
+  left: 13px;
+  z-index: 99;
+  padding: 0 2px;
+  min-width: 20px;
+  background: #fff;
+  box-shadow: 0px 0px 1px #797979;
+  font-size: 10px;
+  color: #888;
+  text-align: center;
+  border-radius: 50%;
+}
+#dispatch p {
+  margin: 0;
+}
+@media (max-height: 480px) {
+  #dispatch .dispatch-bottom {
+    height: initial;
+  }
+}
+/*To delete */
+.dispatch-wrapper #modal-popup {
+  z-index: 9999;
+}
+#dispatch #modal-popup.modal-booking-copy .modal-dialog {
+  max-width: 350px;
+}
+#dispatch #modal-popup.modal-booking-copy iframe {
+  height: 400px;
+}
+#dispatch #dmodal.modal-booking-delete .modal-dialog {
+  max-width: 350px;
+}
+/* ! To delete ! */
+/*Dipatch map markers*/
+.marker-label {
+  overflow: visible !important;
+}
+.status-label {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #000;
+  border-radius: .25em;
+  text-align: center;
+  line-height: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  white-space: nowrap;
+  left: -50% !important;
+  top: 10px !important;
+}
+.status-label.after-map {
+  left: initial !important;
+  top: initial !important;
+  border: initial !important;
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 4px;
+  font-weight: 300;
+  cursor: pointer;
+}
+.status-label.after-map:first-child {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+@media (min-width: 768px) {
+  .eto-modal-booking-tracking .modal-dialog {
+    width: 90%;
+  }
+}
+.eto-modal-booking-tracking .modal-body {
+  padding: 0;
+}
+.marker-driver-label {
+  padding: 2px 6px;
+  border: 1px solid #000;
+  border-radius: .25em;
+  background: #cccccc !important;
+  text-align: center;
+  line-height: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000;
+  white-space: nowrap;
+  left: -50% !important;
+  top: 0 !important;
+  position: relative;
+}
+.marker-driver-label.unavailable {
+  border: 1px solid #adadad;
+  background: #e5e5e5 !important;
+  color: #333;
+}
+.marker-driver-label.available {
+  border: 1px solid #77da89;
+  background: #b5f9c1 !important;
+  color: #333;
+}
+.marker-driver-label.busy {
+  border: 1px solid #feb8b2;
+  background: #fee1d7 !important;
+  color: #333;
+}
+.marker-driver-label.away {
+  border: 1px solid #ffd291;
+  background: #ffdfb6 !important;
+  color: #333;
+}
+/* Datatables */
+.box-menu {
+  margin: 0 auto;
+  width: 100%;
+}
+.box-menu .action-button {
+  border-top: 1px #ededed solid;
+  min-width: 100%;
+  text-align: left;
+  padding: 5px 0 !important;
+  display: block;
+  color: #0c0c0c;
+  text-decoration: none;
+}
+.box-menu .action-button:first-child {
+  border-top: none;
+}
+.box-menu .action-button:last-child {
+  border-bottom: none;
+}
+.dispatch-bottom .nav>li>a {
+  position: relative;
+  display: block;
+  padding: 2px 10px;
+}
+.dispatch-bottom .nav>li {
+  display: inline-flex;
+}
+.dispatch-bottom .nav>li>button {
+  padding: 0;
+}
+#map {
+  flex: 0 0 auto;
+}
+.dispatch-drivers-list {
+  flex: 1 1 auto;
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.75);
+  text-align: left;
+  overflow-x: hidden;
+  width: 100%;
+  height: 60px;
+  min-height: 32px;
+  max-height: 60%;
+  border-top: 1px solid #333;
+}
+.dispatch-drivers-list .splitter {
+  height: 1px;
+  background-color: transparent;
+  position: absolute;
+  flex: 0 0 auto;
+  width: 100%;
+  top: -2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  cursor: row-resize;
+}
+.dispatch-drivers-list .splitter hr {
+  background-color: #333;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.dispatch-drivers-list .empty-drivers {
+  color: #7d7d7d;
+  text-align: left;
+  padding: 4px;
+}
+.dispatch-drivers-list span {
+  display: inline-block;
+  float: left;
+}
+.dispatch-drivers-list .marker-driver-label {
+  width: initial !important;
+  position: initial !important;
+  left: 0 !important;
+  top: initial !important;
+  cursor: pointer;
+  float: left;
+  margin: 2px;
+  padding: 6px;
+}
+/*GLOBAL*/
+.on-off-switch {
+  width: 50px;
+  height: 25px;
+  position: relative;
+  display: inline-block;
+}
+.on-off-switch-label {
+  cursor: pointer;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-indent: -9999px;
+  border: 1px solid #cd2d27;
+  background-color: #f3554e;
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  z-index: 5;
+  -webkit-transition: background-color .2s, border-color .2s;
+  -moz-transition: background-color .2s, border-color .2s;
+  -ms-transition: background-color .2s, border-color .2s;
+  -o-transition: background-color .2s, border-color .2s;
+}
+.on-off-switch-label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 25px;
+  height: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 2px;
+  -webkit-transition: left .2s;
+  -moz-transition: left .2s;
+  -ms-transition: left .2s;
+  -o-transition: left .2s;
+}
+.on-off-switch-input {
+  margin-left: 10px;
+  margin-top: 5px;
+  opacity: 0;
+}
+.on-off-switch-input:checked+.on-off-switch-label {
+  border: 1px solid #2c8512;
+  background-color: #63a54f;
+  text-align: left;
+}
+.on-off-switch-input:checked+.on-off-switch-label:after {
+  left: 25px;
+}
+.on-off-switch-input:checked+.on-off-switch-label:before {
+  left: 35px;
+}
+.inline-editing,
+.add-bookinng-anchor {
+  border-bottom: 0 !important;
+  color: #333;
+}
+.inline-editing-status {
+  opacity: 0.6;
+}
+.inline-editing-status .label {
+  min-width: 85px;
+  display: inline-block;
+}
+.inline-editing-notes {
+  white-space: nowrap;
+}
+.inline-editing-notes i {
+  position: relative;
+  top: 1px;
+  margin-left: 6px;
+  font-size: 16px;
+}
+.inline-editing-status i,
+.inline-editing-notes i,
+.inline-editing-driver i,
+.inline-editing-vehicle i,
+.inline-editing-commission i,
+.inline-editing-cash i {
+  color: #b4b4b4 !important;
+  margin-left: 2px;
+}
+.inline-editing:hover i {
+  color: #000 !important;
+}
+.editable-click,
+a.editable-click,
+a.editable-click:hover,
+.btn-link {
+  color: #333;
+}
+.payment-status i {
+  color: #b4b4b4;
+  margin-left: 2px;
+}
+.nav-tabs-custom {
+  margin-bottom: 0 !important;
+}
+.btn-datatable {
+  border: none;
+  background: initial;
+}
+.lm_goldenlayout,
+.lm_header .lm_tab,
+.lm_header .lm_tab.lm_active,
+.lm_content {
+  background: #fff;
+  color: #333;
+}
+.lm_header .lm_tab.lm_active {
+  border: none;
+  border-top: 1px solid #3c8dbc;
+  box-shadow: none;
+}
+.lm_header .lm_tab .lm_title,
+.lm_close_tab {
+  color: #333;
+}
+.lm_header .lm_tab {
+  box-shadow: none;
+  margin-top: 0;
+}
+.lm_splitter {
+  opacity: 0.6;
+}
+.lm_selected .lm_header {
+  background-color: #fff;
+}
+.lm_content {
+  border: none;
+  text-align: left;
+}
+.lm_header .lm_tab .lm_close_tab:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 14px;
+  content: "\f00d";
+  color: #333;
+  position: relative;
+  top: -1px;
+}
+.dataTablesFooterLeft {
+  display: inline-flex;
+}
+.dataTables_info>i {
+  top: -6px;
+}
+#datatable-bookings {
+  height: 100%;
+}
+@media (min-width: 769px) {
+  .dispatch-wrapper>.content {
+    padding: 0 !important;
+  }
+}
+@media (max-width: 768px) {
+  .dispatch-wrapper>.content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  #dispatch {
+    height: 100%;
+  }
+  #dispatch .dispatch-top {
+    height: 100%;
+  }
+  #dispatch .dispatch-create {
+    border-right: 1px #ddd solid;
+    height: 300px;
+    overflow: auto;
+  }
+  #dispatch .dispatch-drivers {
+    height: 100%;
+  }
+  #dispatch .dispatch-drivers-map {
+    height: 250px;
+  }
+  #dispatch .dispatch-bottom {
+    height: 100%;
+  }
+  #dispatch .dispatch-bookings,
+  #dispatch .dispatch-bookings .tab-content {
+    padding: 0px;
+  }
+  #dispatch .dispatch-create,
+  #dispatch .dispatch-drivers-map,
+  #dispatch .dispatch-drivers-list,
+  #dispatch .dispatch-bookings {
+    border-top: 0;
+    border-bottom: 1px #666666 solid;
+  }
+}
+#dispatch .dataTables_info {
+  margin-right: 5px;
+}
+#dispatch .dataTables_length {
+  margin-left: 5px;
+}
+#dispatch .dataTables_paginate {
+  margin-right: 5px;
+}
+/* ========= NEW CLASSES ========== */
+.eto-form {
+  text-align: left;
+}
+.eto-form a,
+.eto-form a:hover,
+.eto-form a:active,
+.eto-form a:focus {
+  outline: none;
+  text-decoration: none;
+}
+.eto-form-booking {
+  position: relative;
+  padding: 10px;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+.eto-route {
+  position: relative;
+}
+.eto-section {
+  position: relative;
+  display: inline-block;
+  float: left;
+  padding: 1px;
+}
+.eto-section-header {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  left: -5px;
+  top: -10px;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  font-weight: normal;
+}
+.eto-route:hover .eto-section-header {
+  opacity: 1;
+}
+.eto-section-header-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 12px;
+  font-size: 11px;
+  background: #c0c0c0;
+  color: #fff;
+}
+.eto-section-header-label {
+  display: none;
+  line-height: 12px;
+  font-size: 11px;
+  color: #aaa;
+}
+.eto-section-buttons {
+  float: left;
+  display: grid;
+}
+.eto-section-btn {
+  display: block;
+  float: left;
+  margin: 9px 2px 2px 2px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all .2s ease-in-out;
+  background: none;
+  color: #a9a9a9;
+}
+.eto-form-sm .eto-section-buttons,
+.eto-form-xs .eto-section-buttons {
+  display: initial;
+}
+.eto-form-sm .eto-section-btn {
+  display: inline-block;
+}
+.eto-form-sm .eto-section-location .eto-section-buttons,
+.eto-form-xs .eto-section-location .eto-section-buttons {
+  display: block;
+  float: none;
+}
+.eto-section-btn:hover {
+  /* transform: scale(1.1); */
+  background: #a15c93;
+  color: #fff;
+}
+.eto-section-btn-add:hover {
+  background: #8BC34A;
+  color: #fff;
+}
+.eto-section-btn-swap i:before {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin-left: -4px;
+}
+.eto-groups {
+  position: relative;
+  float: left;
+}
+.eto-group {
+  position: relative;
+  padding: 4px 4px;
+  font-size: 12px;
+}
+.eto-group-header {
+  display: block;
+}
+.eto-group-header-icon {
+  display: inline-block;
+  margin-right: 6px;
+}
+.eto-group-header-label {
+  display: inline-block;
+  color: #7a7a7a;
+}
+.eto-summary {
+  display: table;
+  width: 100%;
+}
+.eto-summary-link {
+  position: relative;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  word-break: break-all;
+  cursor: pointer;
+  color: #888888;
+}
+.eto-summary-link:hover {
+  color: #b87fa9;
+}
+.eto-summary-label,
+.eto-summary-value,
+.eto-summary-placeholder {
+  display: inline-block;
+  float: left;
+}
+.eto-summary-icon {
+  display: inline-block;
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  width: 20px;
+  height: 19px;
+  line-height: 0;
+  font-size: 20px;
+  text-align: center;
+}
+.eto-summary-icon i {
+  line-height: 0;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.eto-summary-icon i:before {
+  line-height: 0;
+}
+.eto-summary-icon {
+  color: #c4c4c4;
+}
+.eto-summary-label {
+  color: #515151;
+}
+.eto-summary-value {
+  color: #333;
+}
+.eto-summary-label:not(:empty),
+.eto-summary-value:not(:empty),
+.eto-summary-placeholder:not(:empty) {
+  width: 100%;
+}
+.eto-summary:hover .eto-summary-icon,
+.eto-summary:hover .eto-summary-label,
+.eto-summary:hover .eto-summary-value,
+.eto-summary:hover .eto-summary-placeholder {
+  color: #b87fa9;
+}
+.eto-summary-has-value .eto-summary-icon,
+.eto-summary-has-value .eto-summary-value {
+  /* color: #b87fa9; */
+}
+.eto-summary-has-icon .eto-summary-link {
+  padding-left: 26px !important;
+}
+.eto-summary-buttons {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+  padding-right: 4px;
+}
+.eto-summary-btn {
+  display: inline-block;
+  float: right;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  background: none;
+  color: #bbbbbb;
+}
+.eto-summary-btn:first-child {
+  margin-left: 0;
+}
+.eto-summary-btn:last-child {
+  margin-right: 0;
+}
+.eto-summary-btn:hover {
+  color: #999999;
+  /* transform: scale(1.1); */
+}
+.eto-summary-btn-delete {
+  font-size: 16px;
+}
+.eto-summary-btn-delete:hover {
+  color: #c43333 !important;
+}
+.eto-summary-group,
+.eto-summary-group-separator,
+.eto-summary-group-icon,
+.eto-summary-group-label,
+.eto-summary-group-value {
+  display: inline-block;
+  float: left;
+}
+.eto-summary-group-separator,
+.eto-summary-group-value {
+  padding-right: 2px;
+}
+.eto-summary-placeholder {
+  color: #585858;
+}
+.eto-order-placeholder-group {
+  max-width: 100%;
+  width: 100%;
+  height: 36px;
+  margin: 1px 1px;
+  border-radius: 2px;
+  border: 1px #d5d5d5 dashed;
+}
+.eto-tooltip {
+  display: block;
+  line-height: 12px;
+  font-size: 11px;
+  width: 100% !important;
+}
+.eto-tooltip-field {
+  display: block;
+  padding: 3px 0px;
+}
+.eto-tooltip-field:first-child {
+  padding-top: 0;
+}
+.eto-tooltip-field:last-child {
+  padding-bottom: 0;
+}
+.eto-tooltip-field-icon {
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  color: #adadad;
+}
+.eto-tooltip-field-label {
+  display: inline-block;
+  float: left;
+  color: #adadad;
+  font-size: 11px;
+}
+.eto-tooltip-field-value {
+  display: block;
+  clear: both;
+  word-break: break-all;
+  max-width: 200px;
+}
+.eto-tooltip img {
+  max-height: 50px;
+  max-width: 50px;
+  line-height: initial;
+  vertical-align: initial;
+}
+.eto-bs-popover {
+  border: 1px solid rgba(174, 174, 174, 0.1);
+  border-radius: 0;
+  margin: 0px !important;
+  padding: 0px;
+}
+.eto-bs-popover .webui-popover-content {
+  padding: 8px 8px;
+  font-size: 12px;
+  line-height: 11px;
+}
+.webui-popover {
+  min-height: 20px;
+}
+.webui-popover.bottom,
+.webui-popover.bottom-left,
+.webui-popover.bottom-right {
+  margin-top: 5px;
+}
+.eto-section-bookingStatus .eto-summary-group-value>span {
+  color: #333 !important;
+}
+/* ------------------- STYLING --------------------------------------------------------------- */
+.eto-style-section-btn .eto-section-btn-add {
+  position: relative;
+  margin: 2px 2px;
+  padding: 6px 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  background: none;
+  border: 1px transparent solid;
+  box-shadow: 0px 1px 1px transparent;
+  color: #cdcdcd;
+  line-height: 22px;
+  font-size: 20px;
+}
+.eto-style-section-btn .eto-section-btn-add:before {
+  content: "+";
+  display: inline-block;
+  position: absolute;
+  left: 20px;
+  top: 12px;
+  z-index: 1;
+  color: #cdcdcd;
+  font-size: 16px;
+}
+.eto-style-section-btn .eto-section-btn-add:hover {
+  /* transform: scale(1); */
+  background: #fbfbfb;
+  border: 1px #eeeeee solid;
+  color: #8BC34A;
+}
+.eto-style-section-btn .eto-section-btn-add:hover:before {
+  color: #8BC34A;
+}
+.eto-style-group-horizontal .eto-group {
+  float: left;
+}
+.eto-style-group-vertical .eto-group {
+  float: none;
+}
+.eto-style-group-size-xs .eto-summary,
+.eto-style-group-size-xs .eto-fieldset,
+.eto-style-summary-size-xs .eto-summary {
+  width: 100px !important;
+}
+.eto-style-fieldset-size-xs {
+  width: 105px !important;
+}
+.eto-style-fieldset-size-xs .eto-fieldset {
+  min-width: 100px !important;
+}
+.eto-style-group-size-sm .eto-summary,
+.eto-style-group-size-sm .eto-fieldset,
+.eto-style-summary-size-sm .eto-summary {
+  width: 150px !important;
+}
+.eto-style-fieldset-size-sm .eto-fieldset {
+  min-width: 150px !important;
+}
+.eto-section-when.eto-style-fieldset-size-sm .eto-fieldset {
+  width: 150px !important;
+}
+.eto-style-group-size-md .eto-summary,
+.eto-style-group-size-md .eto-fieldset,
+.eto-style-summary-size-md .eto-summary {
+  width: 220px !important;
+}
+.eto-style-fieldset-size-md .eto-fieldset {
+  min-width: 220px !important;
+}
+.eto-style-group-size-lg .eto-summary,
+.eto-style-group-size-lg .eto-fieldset,
+.eto-style-summary-size-lg .eto-summary {
+  width: 300px !important;
+}
+.eto-style-fieldset-size-lg .eto-fieldset {
+  min-width: 300px !important;
+}
+.eto-style-summary .eto-summary {
+  border: 1px #dddddd solid;
+  border-radius: 3px;
+}
+/* .eto-style-summary .eto-summary:hover {
+  background: #fcf6fa;
+} */
+.eto-style-summary .eto-summary-link {
+  height: 36px;
+}
+.eto-style-summary-vertical .eto-summary-has-value .eto-summary-label,
+.eto-style-summary-vertical .eto-summary-has-value .eto-summary-value {
+  display: block;
+  float: none;
+  line-height: 14px;
+  font-size: 12px;
+}
+.eto-style-summary-vertical .eto-summary-has-value .eto-summary-label {
+  line-height: 12px;
+  font-size: 11px;
+  color: #888888;
+  background: #fff;
+  display: inline;
+  position: relative;
+  top: -8px;
+  left: 10px;
+  padding: 0 1px;
+}
+.eto-style-fieldset .eto-fieldset {
+  padding: 2px 8px;
+  border: 1px #dddddd solid;
+  border-radius: 3px;
+}
+.eto-style-fieldset .eto-fieldset:hover {}
+.eto-style-fieldset-popup .eto-group-open .eto-field {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.eto-style-fieldset-popup .eto-group-open .eto-summary {
+  display: table !important;
+}
+.eto-style-fieldset-popup .eto-group-open .eto-fieldset {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1000;
+  min-width: 220px;
+  background: #fff;
+  border: 1px #dddddd solid;
+}
+.eto-style-fieldset-popup .eto-group-open .eto-fieldset:hover {
+  border: 1px #dddddd solid;
+}
+/* ------------------- TO DOOO---------------------- */
+/* .eto-summary-placeholder {
+  display: none;
+} */
+/* .eto-summary:hover .eto-summary-btn-delete {
+  display: inline-block;
+} */
+/* .eto-group-feedback-error:hover .eto-summary-value,
+.eto-group-feedback-error:hover .eto-summary-placeholder {
+  color: #c70000 !important;
+} */
+.eto-fields {
+  position: relative;
+}
+.eto-style-fieldset-horizontal .eto-field {
+  float: left;
+  margin-right: 4px;
+  padding-right: 4px;
+  border-right: 1px #ececec solid;
+}
+.eto-style-fieldset-horizontal .eto-field:last-child {
+  margin-right: 0;
+  padding-right: 0;
+  border-right: 0;
+}
+.eto-style-fieldset-vertical .eto-field {
+  float: none;
+}
+.eto-fieldset {
+  position: relative;
+}
+.eto-fieldset-buttons {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  z-index: 1;
+  line-height: 18px;
+}
+.eto-fieldset-btn {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  background: #e1e1e1;
+  color: #858585;
+  box-shadow: 0px 1px 1px #cbcbcb;
+}
+.eto-fieldset-btn:hover {
+  /* transform: scale(1.1); */
+  background: #b87fa9;
+  color: #fff;
+  box-shadow: 0px 1px 1px #e7e7e7;
+}
+.eto-field {
+  position: relative;
+  display: table;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.eto-field-row {
+  display: table-row;
+}
+.eto-field>.eto-field-row>.eto-field-icon,
+.eto-field>.eto-field-row>.eto-field-label,
+.eto-field>.eto-field-row>.eto-field-value {
+  display: table-cell;
+  vertical-align: middle;
+}
+.eto-field-label:not(:empty),
+.eto-field-value:not(:empty) {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.eto-field-icon {
+  width: 24px;
+  text-align: center;
+  font-size: 20px;
+  color: #d0cdcd;
+}
+.eto-field-label {
+  color: #888888;
+}
+.eto-field-placeholder {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  z-index: -1;
+  line-height: 12px;
+  font-size: 11px;
+  transition: all .2s ease-in-out;
+  opacity: 0;
+  color: #888888;
+  background: #fff;
+  padding: 0px 2px;
+}
+.eto-group-open .eto-field-placeholder {
+  padding: 0;
+}
+.eto-field-value {
+  color: #333;
+  padding: 2px 0 2px 0;
+}
+.eto-field-has-value .eto-field-placeholder {
+  top: -7px;
+  z-index: 1;
+  opacity: 1;
+}
+.eto-field-search_field {
+  margin-bottom: 10px;
+  border-bottom: 1px #eaeaea solid;
+}
+.eto-field-search_field .eto-field-value {
+  width: 190px;
+}
+.eto-field-passenger_from_customer.eto-field-has-value .eto-field-value,
+.eto-field-meet_and_greet.eto-field-has-value .eto-field-value,
+.eto-field-send_notification.eto-field-has-value .eto-field-value {
+  padding: 2px 0 2px 0;
+}
+.eto-field-buttons {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+}
+.eto-field-buttons-over .eto-field-buttons {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+}
+.eto-field-buttons-over.eto-field-has-placeholder.eto-field-has-value .eto-field-buttons {
+  top: 8px;
+}
+.eto-field-btn {
+  display: inline-block;
+  float: right;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  line-height: 16px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  color: #bbbbbb;
+}
+.eto-field-btn i::before {
+  line-height: 0;
+}
+.eto-field-btn:hover {
+  /* transform: scale(1.1); */
+  color: #bb6baa;
+}
+.eto-fieldset-btn-handler .fa.fa-arrows-v {
+  font-size: 14px;
+}
+.eto-form-feedback {
+  clear: both;
+  display: block;
+  line-height: 16px;
+  font-size: 12px;
+  padding: 10px;
+  line-height: 12px;
+  font-size: 12px;
+  background: #fff;
+  border-left: 2px #e70000 solid;
+  color: #e70000;
+  display: inline-block;
+}
+.eto-field-feedback {
+  display: block;
+  width: 100%;
+  padding: 5px 5px;
+  line-height: 12px;
+  font-size: 11px;
+  background: #fff2f2;
+  color: #d98a8a;
+  margin-top: -4px;
+  margin-bottom: 6px;
+}
+.eto-field-feedback-error .eto-field-placeholder {
+  color: #d98a8a;
+}
+.eto-field input[type="email"],
+.eto-field input[type="email"]:focus,
+.eto-field input[type="email"]:active,
+.eto-field input[type="text"],
+.eto-field input[type="text"]:focus,
+.eto-field input[type="text"]:active {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  background: none;
+  line-height: 20px;
+  font-size: 12px;
+  color: #333;
+}
+.eto-js-inputs::-webkit-input-placeholder {
+  color: #c4c4c4;
+}
+.eto-js-inputs::-moz-placeholder {
+  color: #c4c4c4;
+}
+.eto-js-inputs:-ms-input-placeholder {
+  color: #c4c4c4;
+}
+.eto-js-inputs:-moz-placeholder {
+  color: #c4c4c4;
+}
+.eto-field textarea {
+  background: none;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 55px;
+  line-height: 20px;
+  outline: 0;
+}
+.eto-field .bootstrap-touchspin {
+  /*width: 100%;*/
+}
+.eto-field .bootstrap-touchspin button {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 16px;
+  text-align: center;
+  border: none !important;
+  border-radius: 50% !important;
+  background: #e1e1e1 !important;
+  color: #fff !important;
+}
+.eto-field .bootstrap-touchspin button:hover {
+  background: #ba82ab !important;
+  color: #fff !important;
+}
+.eto-field .bootstrap-touchspin .input-group-btn-vertical {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  height: 100%;
+  z-index: 11;
+}
+.eto-field .bootstrap-touchspin-up {
+  margin-left: 2px !important;
+  float: right;
+  top: initial;
+}
+.eto-field .bootstrap-touchspin-down {
+  float: left;
+  bottom: initial;
+}
+.eto-field-touchspin-no-buttons .bootstrap-touchspin .input-group-btn-vertical {
+  display: none !important;
+}
+.eto-field-vehicle_amount {
+  padding-top: 8px;
+  padding-bottom: 1px;
+}
+.eto-field-vehicle_amount .eto-summary-btn-delete {
+  margin-top: -3px;
+  margin-left: 4px;
+}
+.eto-field-vehicle_amount .input-group-append,
+.eto-field-vehicle_amount .input-group-prepend {
+  display: initial;
+}
+.eto-field-vehicle_amount input {
+  width: 15px !important;
+  margin: 0;
+  text-align: center;
+  line-height: 18px !important;
+}
+.eto-field .iti {
+  width: 100%;
+}
+.eto-field .iti input {
+  padding-left: 52px !important;
+}
+.eto-field-type-radio {
+  line-height: 10px;
+}
+.eto-field-type-checkbox label,
+.eto-field-type-radio label {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  cursor: pointer;
+  color: #888888;
+}
+.eto-field-type-checkbox label:after,
+.eto-field-type-radio label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.eto-field-type-checkbox-icon,
+.eto-field-type-radio-icon {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-top: 1px;
+  margin-right: 4px;
+  line-height: 16px;
+  font-size: 12px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #d2d6de;
+}
+.eto-field-type-radio-icon {
+  border-radius: 50%;
+}
+.eto-field-type-checkbox-icon:hover,
+.eto-field-type-radio-icon:hover {
+  border-color: #b87fa9;
+  -webkit-transition: border 0.2s;
+  -moz-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
+}
+.eto-field-type-checkbox-icon i {
+  position: absolute;
+  top: -5px;
+  left: 2px;
+  line-height: 0;
+  font-size: 24px;
+}
+.eto-field-type-radio-icon i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  line-height: 0;
+  font-size: 12px;
+}
+.eto-field-type-checkbox-label,
+.eto-field-type-radio-label {
+  line-height: 20px;
+  float: left;
+}
+.eto-field-type-checkbox label input[type="checkbox"],
+.eto-field-type-radio label input[type="radio"] {
+  display: none;
+}
+.eto-field-type-checkbox label input[type="checkbox"]+.eto-field-type-checkbox-icon>i,
+.eto-field-type-radio label input[type="radio"]+.eto-field-type-radio-icon>i {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+.eto-field-type-checkbox label input[type="checkbox"]:checked+.eto-field-type-checkbox-icon {
+  background: #b87fa9;
+  border-color: #b87fa9;
+  color: #fff;
+}
+.eto-field-type-radio label input[type="radio"]:checked+.eto-field-type-radio-icon {
+  color: #b87fa9;
+}
+.eto-field-type-checkbox label input[type="checkbox"]:checked+.eto-field-type-checkbox-icon>i,
+.eto-field-type-radio label input[type="radio"]:checked+.eto-field-type-radio-icon>i {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+.eto-field-type-checkbox label input[type="checkbox"]:disabled+.eto-field-type-checkbox-icon,
+.eto-field-type-radio label input[type="radio"]:disabled+.eto-field-type-radio-icon {
+  opacity: 0.5;
+}
+.eto-field .select2 {
+  width: 100% !important;
+}
+/* .select2-container {
+  font-size: 12px;
+  line-height: 12px;
+  min-height: 18px;
+}
+.select2-results__option {
+  padding: 4px 6px;
+} */
+.eto-field .select2-container .select2-selection--single {
+  border-radius: 0px;
+  height: auto;
+  padding: 0 20px 0 0;
+  background: none;
+  border-color: transparent;
+}
+.eto-field .select2-container .select2-selection--single .select2-selection__rendered {
+  margin: 0;
+  padding: 0px;
+  line-height: 18px;
+}
+.eto-field .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 18px;
+}
+/* Typeahead */
+.eto-form:not(.eto-form-xs) .eto-section-location .eto-field-address .twitter-typeahead {
+  width: 210px;
+  max-width: 100%;
+}
+.eto-form:not(.eto-form-xs) .eto-section-location .eto-fieldset {
+  min-width: 310px !important;
+}
+.eto-field-address .tt-menu {
+  max-width: none;
+  top: 140% !important;
+  left: -9px !important;
+}
+.tt-hint {
+  color: #999
+}
+.tt-menu {
+  width: 300px;
+  max-width: 100%;
+  max-height: 192px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0px 0;
+  padding: 0;
+  background-color: #fbfbfb;
+  border: 1px solid #dddddd !important;
+}
+.tt-menu:hover {
+  border-color: #3c8dbc;
+}
+.tt-header {
+  padding: 6px;
+  color: #a9a9a9;
+  font-size: 12px;
+}
+.powered-by-google-locations {
+  margin: 6px 6px 6px 6px;
+}
+.tt-suggestion {
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 20px;
+  position: relative;
+}
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #1c70b1;
+}
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+}
+.tt-suggestion p {
+  margin: 0;
+}
+.tt-empty {
+  padding: 4px 4px;
+}
+.tt-s-name {
+  width: 90%;
+}
+.tt-s-category {
+  display: inline-block;
+  width: 28px;
+  border-radius: 2px;
+  background: none !important;
+  color: #cccccc !important;
+  line-height: 20px;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+.tt-s-category i {
+  position: relative;
+  display: inline-block;
+  line-height: 20px;
+  font-size: 18px;
+}
+.tt-s-category i:before {
+  position: relative;
+  top: 1px;
+}
+.tt-suggestion:hover .tt-s-category {
+  color: #fff !important;
+}
+.eto-style-radio-horizontal .eto-field-type-radio {
+  float: left;
+  margin-right: 4px;
+}
+.eto-style-radio-vertical .eto-field-type-radio {
+  float: none;
+}
+.eto-style-tabs .eto-field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.eto-style-tabs .eto-field-value {
+  width: 100%;
+}
+.eto-style-tabs .eto-field-type-radio-icon {
+  display: none;
+}
+.eto-style-tabs .eto-field-type-radio-label {
+  padding: 2px 6px;
+  border-radius: 2px;
+  color: #aaa;
+  border-bottom: 1px transparent solid;
+}
+.eto-style-tabs .eto-field-type-radio label input[type="radio"]:checked+.eto-field-type-radio-icon+.eto-field-type-radio-label,
+.eto-style-tabs .eto-field-type-radio-label:hover {
+  background: #fff;
+  color: #477ffa;
+}
+.eto-style-group-horizontal .eto-order-placeholder-group {
+  float: left;
+}
+.eto-style-group-vertical .eto-order-placeholder-group {
+  float: none;
+}
+.eto-order-placeholder-section {
+  display: block;
+  width: 260px;
+  height: 10px;
+  max-width: 100%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  background: #1e4ed6;
+  color: #fff;
+}
+body.dragging,
+body.dragging * {
+  cursor: move !important;
+}
+.eto-group.dragged {
+  position: absolute;
+  z-index: 2000;
+  opacity: 0.5;
+}
+.eto-section-feedback-error {
+  background-color: #dca7a7;
+}
+.eto-section-baseStart .eto-field-label,
+.eto-section-startEnd .eto-field-label,
+.eto-section-endBase .eto-field-label {
+  min-width: 100px;
+}
+.eto-select {}
+.eto-select-group {
+  display: block;
+}
+.eto-select-group-email,
+.eto-select-group-phone {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #cdcdcd;
+}
+.passenger_from_customer .eto-field-type-button {
+  color: #b87fa9;
+  cursor: pointer;
+}
+.passenger_from_customer:hover .eto-field-type-button {
+  color: #b87fa9;
+  text-decoration: underline;
+}
+.eto-position-1,
+.eto-position-2,
+.eto-position-3,
+.eto-position-4,
+.eto-position-5,
+.eto-position-6,
+.eto-position-7 {
+  margin-bottom: 5px;
+}
+.eto-position-7 {
+  padding: 0 10px;
+}
+.eto-position-2-1,
+.eto-position-2-2 {
+  float: left;
+  width: 50%;
+}
+.eto-form-xs .eto-position-2-1,
+.eto-form-xs .eto-position-2-2,
+.eto-form-sm .eto-position-2-1,
+.eto-form-sm .eto-position-2-2 {
+  clear: both;
+}
+.eto-form-xs.eto-form-return-active .eto-section-has-return {
+  margin-bottom: 5px;
+}
+.eto-route-2 .eto-summary {
+  background: #f0fcff;
+  border: 1px #c6dadf solid;
+}
+#dispatch .dispatch-create,
+.lm_stack>.lm_items,
+.lm_content {
+  /* overflow: visible; */
+}
+/* .eto-controls-fixed {
+  overflow-y: inherit;
+  padding: 0;
+}
+.eto-controls-fixed .eto-positions {
+  overflow-y: auto;
+  height: 100%;
+  padding: 10px 10px 40px 10px;
+}
+.eto-controls-fixed .eto-controls {
+  position: absolute;
+  top: auto;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+} */
+/* .eto-positions {
+  margin-top: 25px;
+} */
+.eto-controls {
+  padding: 5px 10px;
+}
+.eto-price-summary-popup {
+  text-align: left;
+  font-size: 12px;
+  line-height: 16px;
+}
+.eto-price-summary-popup-header {
+  font-weight: bold;
+}
+.eto-price-summary-popup-item {}
+.eto-price-summary-popup-subtotal {}
+.eto-price-summary-popup-total {
+  margin-top: 10px;
+}
+.eto-price-summary-popup-discount-message {
+  margin-top: 10px;
+  color: #5199d3;
+}
+.eto-price-summary {
+  float: left;
+  margin-right: 20px;
+  padding: 5px 0px;
+  border-radius: 2px;
+}
+.eto-price-summary .eto-js-total {
+  font-weight: 500;
+}
+.eto-buttons {
+  float: left;
+}
+.eto-buttons button.btn-default {
+  background-color: #fbfbfb;
+  border-color: #eeeeee;
+}
+.eto-buttons button.btn-default:hover,
+.eto-buttons button.btn-default:active,
+.eto-buttons button.btn-default.hover {
+  background-color: #e4e4e4;
+  border-color: #eeeeee;
+}
+.eto-buttons a {
+  color: #a74a8f;
+  margin-right: 10px;
+}
+.eto-buttons span {
+  margin-left: 5px;
+}
+.swal2-actions button {
+  margin: 0 5px;
+}
+.swal2-actions .eto-price-summary {
+  float: none;
+}
+#modal-popup.modal-booking-edit .modal-body,
+.eto-modal-booking-edit .modal-body {
+  padding: 1px;
+}
+.eto-tooltip-price-summary {
+  width: auto !important;
+  min-width: 150px;
+  max-width: 100%;
+}
+.eto-tooltip-price-summary>div {
+  margin: 4px 0 4px 0;
+}
+/* Masking */
+/*.eto-section-passenger .eto-group:nth-child(2) .eto-summary-link:before {*/
+/*content: "Lead Passenger";*/
+/*font-size: 9px;*/
+/*line-height: 10px;*/
+/*margin: -7px 2px;*/
+/*background: #fff;*/
+/*}*/
+.eto-commission-auto-calculate {
+  color: #b87fa9;
+  cursor: pointer;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+.eto-form-mode-edit .eto-section-paymentType,
+.eto-form-mode-edit .eto-section-deposit,
+.eto-form-mode-add .eto-section-baseStart,
+.eto-form-mode-add .eto-section-startEnd,
+.eto-form-mode-add .eto-section-endBase,
+.eto-form-mode-add .eto-section-notifications .eto-field-send_invoice,
+.eto-section-driver .eto-field-comments,
+/*.eto-section-vehicle .eto-field-vehicle_amount,*/
+.eto-section-passenger .eto-field-comments {
+  display: none !important;
+}
+.eto-section-vehicle .eto-group,
+.eto-section-vehicle .eto-field {
+  width: auto;
+  display: table;
+}
+.eto-section-vehicle .eto-fields {
+  width: auto;
+  display: table;
+}
+.eto-section-vehicle .eto-fields div {
+  display: table-cell;
+}
+.eto-section-vehicle .eto-add-item {
+  margin-left: 0px;
+}
+.eto-section-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #477ffa;
+  text-transform: uppercase;
+  margin-left: 5px;
+  margin-bottom: 2px;
+}
+.eto-pointer {
+  cursor: pointer;
+}
+.eto-add-item {
+  width: auto;
+  margin-top: 12px;
+  margin-left: 10px;
+}
+.eto-add-item:hover {
+  background: initial;
+  color: #a9a9a9;
+  transform: initial;
+}
+.eto-add-item i {
+  float: right;
+  margin: 0 2px 2px 2px;
+  width: 20px;
+  border-radius: 50%;
+  transition: all .2s ease-in-out;
+  color: #477ffa;
+}
+.eto-add-item i:hover {
+  background: #8BC34A;
+  color: #fff;
+  /* transform: scale(1.1); */
+}
+.eto-summary-icon-revert.eto-summary-has-icon .eto-summary-link {
+  padding-left: 0 !important;
+  padding-right: 26px !important;
+}
+.eto-summary-icon-revert .eto-summary-icon {
+  top: 15px;
+  right: 3px;
+  left: initial;
+}
+/* .eto-summary-icon,
+.eto-summary-link {
+  background: #ebebeb;
+} */
+.eto-summary-link>*:not(.eto-summary-icon) {
+  /* background: #fff; */
+}
+.eto-route-2 .eto-summary-link>*:not(.eto-summary-icon) {
+  /* background: #faf9f1; */
+  border: #f0fcff;
+}
+.eto-route-2 .eto-summary-link,
+.eto-route-2 .eto-summary-icon,
+/* .eto-route-2 .eto-summary-icon i,
+.eto-route-2 .eto-field-buttons i, */
+.eto-route-2 .eto-fieldset,
+.eto-route-2 .eto-js-inputs {
+  background: #f0fcff !important;
+}
+.eto-group-feedback-error .eto-summary,
+.eto-group-feedback-error:hover .eto-summary {
+  background: #fff7f7 !important;
+  border: 1px #ff9c9c solid !important;
+}
+.eto-summary-link>*:not(.eto-summary-icon) {
+  padding: 1px 10px 1px 10px;
+}
+/* .eto-summary-link>.eto-summary-placeholder {
+  padding-top: 5px;
+} */
+.eto-summary-link>.eto-summary-value:not(:empty) {
+  padding: 5px 10px 5px 10px;
+}
+.eto-position-3 .eto-style-summary .eto-summary,
+.eto-position-3 .eto-style-summary .eto-summary-icon,
+.eto-position-3 .eto-style-summary .eto-summary-link,
+.eto-position-5-2 .eto-style-summary .eto-summary,
+/*:not(.eto-section-driver)*/
+.eto-position-5-2 .eto-style-summary .eto-summary-icon,
+.eto-position-5-2 .eto-style-summary .eto-summary-link {
+  border: initial;
+  background: #fff;
+}
+.eto-section-fleet .eto-summary,
+.eto-section-driver .eto-summary {
+  border: 1px #dddddd solid !important;
+  border-radius: 3px !important;
+}
+.eto-position-5-2 .eto-style-summary .eto-summary-label:after {
+  content: '\f067';
+  font-family: FontAwesome;
+  color: #477ffa;
+  float: right;
+  display: inline-block;
+  position: absolute;
+  margin-left: 4px;
+}
+.eto-section-location .eto-summary-link:hover:before {
+  content: '\f07d';
+  font-family: FontAwesome;
+  color: #477ffa;
+  position: absolute;
+  font-size: 20px;
+  margin-left: -10px;
+  /*margin-top: -10px;*/
+}
+.eto-summary.eto-summary-has-value .eto-summary-value {
+  /* line-height: 26px; */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.eto-summary.eto-summary-has-label .eto-summary-value {
+  line-height: 20px;
+  margin-top: -12px;
+}
+.eto-summary.eto-summary-has-icon.eto-summary-has-value .eto-summary-value {
+  line-height: 26px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: initial;
+}
+.eto-summary-label {
+  display: block;
+}
+.eto-buttons ul {
+  padding: 0;
+  width: auto;
+  min-width: 0;
+}
+.eto-small-icon i:not(.fa-trash-o):not(.ion-man) {
+  font-size: 14px;
+}
+.eto-btn-return,
+.eto-btn-return-off,
+.eto-btn-form-settings,
+.eto-btn-set-outbound,
+.eto-btn-set-return {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.eto-form-booking:not(.eto-form-xs) .eto-route-switch {
+  position: absolute;
+  top: -25px;
+  right: 30px;
+  z-index: 1;
+}
+.eto-form-booking.eto-form-sm .eto-route-switch {
+  right: 5px;
+}
+.eto-form-booking.eto-form-xs .eto-route-switch {
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.eto-form-settings {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+.eto-route-switch button,
+.eto-form-settings button {
+  position: relative;
+  margin: 0;
+  float: left;
+}
+.eto-route-switch button i.eto-error-route,
+.eto-form-settings button i.eto-error-route {
+  display: inline-block;
+  color: #ea0000;
+  font-size: 11px;
+  background: #fff;
+  border-radius: 50%;
+  line-height: 15px;
+  float: right;
+  margin-top: 1px;
+  margin-left: 5px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  box-shadow: 0px 1px 1px #000;
+}
+.swal-wide {
+  width: 500px !important;
+}
+.swal-wide #swal2-content {
+  text-align: justify;
+  margin-left: 20px;
+}
+.eto-form-mobile {}
+.eto-btn-advance i.fa {
+  position: relative;
+  margin-right: 3px;
+}
+.eto-btn-advance i.fa-sort-desc {
+  top: -3px;
+}
+.eto-btn-advance i.fa-sort-asc {
+  top: 3px;
+}
+.select2-results li .marker-driver-label {
+  position: sticky;
+  margin: -6px;
+  padding: 6px;
+  text-align: left;
+}
+.eto-btn-map-settings,
+.gm-fullscreen-control {
+  margin-top: 10px;
+  margin-left: 5px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  border-radius: 2px;
+}
+.pac-container,
+.select2-dropdown {
+  z-index: 999999999;
+}
+.eto-driver-map-search {
+  position: absolute !important;
+  top: 0;
+  margin-top: 10px !important;
+  z-index: 999999;
+}
+.dispatch-drivers-list .select2-selection,
+.dispatch-drivers-list .select2-selection .select2-selection__rendered {
+  width: 150px;
+}
+.select2-selection__clear {
+  padding: 3px;
+  z-index: 9999999;
+}
+.search-driver {
+  border: none !important;
+  color: #000 !important;
+  padding: 10px 7px !important;
+  border-radius: unset;
+}
+.eto-modal-settings .modal-header h4,
+.eto-modal-map-settings .modal-header h4,
+.eto-modal-form-settings .modal-header h4 {
+  margin: 0;
+}
+.eto-modal-settings .modal-header,
+.eto-modal-map-settings .modal-header,
+.eto-modal-form-settings .modal-header {
+  padding: 10px 15px;
+}
+.eto-permission-item-actions label,
+.eto-modal-settings .modal-body label,
+.eto-modal-map-settings .modal-body label,
+.eto-modal-form-settings .modal-body label {
+  font-weight: normal;
+}
+.eto-modal-settings .modal-body .form-group,
+.eto-modal-map-settings .modal-body .form-group,
+.eto-modal-form-settings .modal-body .form-group {
+  margin-bottom: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.eto-modal-form-settings .modal-body .minicolors input {
+  height: 24px !important;
+}
+.eto-modal-form-settings .modal-body .minicolors .minicolors-swatch {
+  height: 18px !important;
+}
+.eto-notify .swal2-popup .swal2-actions {
+  z-index: initial;
+}
+.subscription-message {
+  margin-bottom: 2px;
+}
+.eto-select2-dropdown-xs {
+  width: 50px !important;
+}
+.eto-section-notes,
+.eto-section-requirement {
+  margin-right: 10px;
+}
+.eto-form-xs .eto-section-notes,
+.eto-form-xs .eto-section-requirement,
+.eto-form-xs .eto-section-customField {
+  margin-right: 0px;
+  float: none;
+  display: block;
+  clear: both;
+}
+.eto-section-notifications .eto-summary {
+  min-width: 85px;
+}
+.daterangepicker .calendar-table th,
+.daterangepicker .calendar-table td {
+  line-height: 14px;
+}
+.eto-search-form .eto-input-search,
+.eto-search-form .eto-input-from,
+.eto-search-form .eto-input-to {
+  width: 200px;
+  margin: 0 9px 0 9px;
+}
+.eto-search-form {
+  margin: 0 0 12px -9px;
+}
+#calendar .eto-fullcalendar {
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.eto-quote {
+  float: left;
+}
+.eto-quote button {
+  margin: 9px 10px;
+}
+/* Translations */
+.eto-translations {
+  font-size: 14px;
+}
+.eto-translations-filters {
+  background: #f8f8f8;
+  margin: 0px;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  /* box-shadow: 1px 1px 1px #e8e8e8; */
+  border: 1px #f0f0f0 solid;
+}
+.eto-translations-filters .form-group {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.eto-translations label {
+  font-weight: normal;
+}
+.eto-translations table th {
+  font-weight: bold !important;
+}
+.eto-translations-attribute {
+  color: red;
+}
+.eto-color-btn-clear,
+.eto-translations-attr-info,
+.eto-translations-btn-clear,
+.eto-translations-btn-clear-group-item {
+  font-size: 16px;
+  margin-left: 5px;
+  display: inline-block;
+  color: #E91E63;
+  cursor: pointer;
+  float: right;
+}
+.eto-translations-attr-info:hover,
+.eto-translations-btn-clear:hover,
+.eto-color-btn-clear:hover {
+  color: #E91E63;
+}
+.eto-color-btn-clear {
+  margin-right: 5px;
+}
+.eto-locale-from,
+.eto-locale-to {
+  white-space: pre-wrap !important;
+}
+.eto-translations .editableform .form-control {
+  height: 100px;
+  width: 400px;
+  max-width: 100%;
+}
+.eto-translations .editable-click {
+  cursor: pointer;
+}
+.eto-lang-field {
+  margin-bottom: 10px;
+}
+.eto-lang-field:last-child {
+  margin-bottom: 0px;
+}
+.eto-lang-field label {
+  padding-top: 0px !important;
+  padding-bottom: 6px !important;
+}
+.eto-modal-edit-translation .modal-header h4 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.eto-translations-has-trans {
+  background: #fffbef;
+}
+.eto-translations .dataTables_info i {
+  margin-right: 10px;
+}
+#reports label {
+  font-style: normal;
+}
+.report-data-container {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.eto-content-info-report td a,
+.eto-report-driver-data td a,
+.report-data-container td a {
+  color: #333;
+}
+.eto-content-info-report td a:hover,
+.eto-report-driver-data td a:hover,
+.report-data-container td a:hover {
+  color: #3c8dbc;
+}
+.report-payment-column-ref {
+  width: 200px;
+}
+.report-payment-column-total {
+  width: 100px;
+}
+.report-data-container-summary {
+  margin-bottom: 10px;
+}
+.report-data-header {
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+.report-data-header span {
+  display: none;
+  font-weight: normal;
+  color: #b5b5b5;
+}
+.report-data-container:hover .report-data-header span {
+  display: inline-block;
+}
+.report-data-row {
+  margin-bottom: 2px;
+}
+.report-data-row-name {
+  display: inline-block;
+  float: left;
+  min-width: 180px;
+  margin-left: 5px;
+  color: #747474;
+}
+.report-data-row-value {
+  display: inline-block;
+  float: left;
+}
+.report-data-container .eto-btn-info-report {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.report-data-container .eto-btn-info-report.eto-type-payment {
+  position: initial;
+  float: right;
+  margin-top: -21px;
+}
+.eto-btn-info-report {
+  font-size: 18px;
+  cursor: pointer;
+  color: #aaaaaa;
+}
+.eto-btn-info-report:hover {
+  color: #000;
+}
+.eto-show-report .table-condensed th {
+  padding-bottom: 15px !important;
+}
+.eto-report-invalid-bookings .table-condensed th,
+.eto-report-invalid-bookings .table-condensed td,
+.eto-show-report .table-condensed th,
+.eto-show-report .table-condensed td {
+  border: 0;
+  padding: 2px 5px;
+  vertical-align: top;
+}
+.eto-report-invalid-bookings .table-condensed,
+.eto-report-invalid-bookings .table-condensed,
+.eto-show-report .table-condensed,
+.eto-show-report .table-condensed {
+  border: 0;
+  margin-bottom: 10px;
+}
+.eto-report-invalid-bookings .table-condensed th:last-child,
+.eto-report-invalid-bookings .table-condensed td:last-child,
+.eto-show-report .table-condensed th:last-child,
+.eto-show-report .table-condensed td:last-child {
+  border: 0;
+}
+.eto-content-info-report-wrap,
+.eto-report-actions-send {
+  margin-top: 10px;
+}
+.eto-content-info-report-wrap {
+  margin-bottom: 20px;
+}
+.eto-content-info-report-wrap button {
+  margin-top: 10px;
+}
+.eto-content-info-report-wrap .eto-content-info-report {
+  display: none;
+}
+.eto-show-report .table-condensed a {
+  display: inline-block;
+}
+.eto-report-invalid-bookings .table-condensed>tfoot>tr>td,
+.eto-show-report .table-condensed>tfoot>tr>td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.eto-report-driver-container .table-condensed>tfoot tr:last-child td,
+.eto-report-invalid-bookings .table-condensed>tfoot tr:last-child td {
+  padding-top: 15px !important;
+  padding-bottom: 5px !important;
+}
+.eto-show-report .eto-report-driver-name,
+.eto-show-report .eto-final-balance,
+.eto-report-invalid-bookings .table-condensed>thead tr:first-child th,
+.eto-report-invalid-bookings .table-condensed>tfoot tr:last-child td,
+.eto-show-report .table-condensed>thead tr:first-child th,
+.eto-show-report .table-condensed>tfoot tr:last-child td {
+  font-weight: bold;
+}
+.eto-show-report .eto-report-total {
+  padding-bottom: 15px !important;
+}
+.eto-report-transaction {
+  display: block;
+}
+.eto-report-transaction span {
+  display: table-cell;
+}
+.eto-report-transaction .eto-report-transaction-method {
+  color: #ccc;
+  padding-left: 5px;
+  font-size: 12px;
+}
+.eto-report-transaction .eto-report-transaction-status {
+  padding-right: 5px;
+}
+.eto-bs-popover .eto-report-transaction {
+  padding-bottom: 5px;
+}
+.callout.license-suspended {
+  border-radius: 0;
+  margin: 0;
+}
+.license-suspended-block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: 0.6;
+  display: block;
+  z-index: 999;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.eto-no-data {
+  text-align: left;
+}
+.eto-no-data,
+.eto-show-report {
+  padding-top: 15px;
+}
+.eto-chart .btn-link.active {
+  background-color: #eeeeee;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.eto-chart-container {
+  margin-top: 50px;
+}
+.eto-report-date {
+  font-weight: bold;
+}
+.eto-chart-container {
+  clear: both;
+}
+.eto-report-driver-container {
+  margin-bottom: 20px;
+}
+.eto-payments-warning {
+  color: #F44336;
+}
+.eto-report-driver-name-container-wrap {
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+.eto-final-balance-wrap {
+  padding: 0 5px;
+}
+.eto-report-driver-name-container {
+  float: left;
+}
+.eto-report-driver-container .eto-charts-right,
+.eto-report-driver-buttons-container {
+  float: right;
+}
+.eto-report-driver-buttons-container .dropdown-menu,
+.eto-btn-export-actions .dropdown-menu {
+  left: -70px;
+  min-width: 100px;
+}
+.eto-report-driver-buttons-container .dropdown-menu>li>a,
+.eto-btn-export-actions .dropdown-menu>li>a {
+  padding: 4px 14px;
+}
+.eto-chart-wrapper,
+.eto-report-driver-container .eto-charts {
+  width: 600px;
+  height: 400px;
+  max-width: 600px;
+  max-height: 400px;
+}
+.eto-report-driver-container hr {
+  clear: both;
+  width: 100%;
+}
+.eto-report-driver-data {
+  margin-bottom: 20px;
+}
+.eto-report-driver-data {
+  float: left;
+}
+.eto-report-driver-data table {
+  max-width: 100%;
+  width: 600px;
+}
+.eto-charts-left {
+  float: left;
+}
+@media (max-width: 700px) {
+  .eto-report-driver-data,
+  .eto-charts-left {
+    float: none;
+  }
+}
+.eto-btn-send-report {
+  margin-right: 5px;
+}
+.eto-modal-report-booking-details {
+  z-index: 1090;
+}
+.eto-modal-report-booking-details .modal-dialog {
+  width: 900px;
+}
+.modal {
+  overflow-y: auto;
+}
+.eto-raport-table-col-company_take {
+  min-width: 140px;
+}
+.eto-addons-container {
+  margin-top: 30px;
+}
+.eto-addons-title {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.eto-addons-list {
+  padding: 0 0 0px 12px;
+}
+.eto-addons-list li {
+  margin-bottom: 5px;
+}
+#reports .pageFilters #status {
+  min-width: 190px;
+}
+.timeline>li>.timeline-item {
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
+}
+.timeline>li>.timeline-item>.timeline-header {
+  border-bottom: initial;
+}
+.timeline>li.eto-load-more {
+  width: 60px;
+  background: #d2d6de;
+  border-radius: 15%;
+  text-align: center;
+  cursor: pointer;
+}
+.timeline>li.eto-load-more>.fa {
+  width: initial;
+  height: initial;
+  font-size: 15px;
+  line-height: initial;
+  position: initial;
+  color: #666;
+  left: 0;
+  top: 0;
+}
+.eto-notify-item td {
+  width: 33%;
+}
+.onoffswitch-input:disabled+.onoffswitch-label {
+  cursor: no-drop;
+  background-color: #cd9185;
+}
+.onoffswitch-input:disabled:checked+.onoffswitch-label {
+  background-color: #728571;
+}
+.eto-form-progress {
+  margin: 25px;
+}
+.eto-form-progress p {
+  width: 100%;
+  text-align: center;
+}
+.eto-remove-translations {
+  display: none;
+}
+.list-accordion-item>.badge {
+  float: right;
+}
+.box .box {
+  box-shadow: none;
+}
+.box .box .box-header.with-border {
+  border-bottom: none;
+}
+.eto-export-section-table th,
+.eto-export-section-table td {
+  padding: 4px !important;
+}
+.eto-export-section-columns label,
+.eto-new-filter-form label,
+.eto-export-section-table label {
+  font-weight: normal;
+}
+.eto-export-section-table td:nth-child(1) {
+  width: 15% !important;
+}
+.eto-export-section-table td:nth-child(1) label {
+  margin-top: 7px;
+}
+.eto-export-section-table td:nth-child(2) {
+  width: 5% !important;
+}
+.eto-export-section-table td:nth-child(2) .onoffswitch {
+  margin-right: 50px;
+  top: 5px;
+}
+.eto-export-section-table td:nth-child(3) {
+  display: flex;
+}
+.eto-export-section-table td:nth-child(3)>span {
+  display: inline-flex;
+  top: 0;
+}
+.eto-section-filters,
+.eto-to-use-filters {
+  margin-bottom: 10px;
+}
+.eto-section-filters span,
+.eto-to-use-filters span {
+  display: inline-block;
+  position: relative;
+  margin: 0 4px 2px 0;
+  background: #fff;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 12px;
+  padding: 4px 8px;
+  color: #999;
+}
+.eto-section-filters span:hover,
+.eto-to-use-filters span:hover {
+  background: #f4f4f4;
+  border: 1px solid #d8d8d8;
+  color: #333;
+}
+.eto-section-filters span::after,
+.eto-to-use-filters span::after {
+  display: inline-block;
+  float: right;
+  margin-left: 5px;
+  line-height: 12px;
+  font-size: 10px;
+}
+.eto-section-filters span::after {
+  content: "x";
+}
+.eto-to-use-filters span.eto-use,
+.eto-section-filters span.eto-filter-declared {
+  background: #f4d4d4;
+}
+.export-group {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.eto-modal-section-columns .form-group,
+.eto-modal-section-params .form-group {
+  margin-bottom: 3px;
+}
+.eto-item .timeline-header>a,
+.eto-new-backup label,
+.eto-switch label,
+.eto-ftp-data label,
+.eto-modal-copy label,
+.eto-modal-move label {
+  font-weight: normal !important;
+}
+table:not(.dataTable) tr.eto-item td {
+  padding: 10px 0;
+}
+table:not(.dataTable) tr.eto-item:first-child td {
+  border: none !important;
+  padding-top: 0;
+}
+table:not(.dataTable) tr.eto-item:last-child td {
+  padding-bottom: 0;
+}
+@media (max-width: 600px) {
+  tr.eto-item,
+  tr.eto-item td,
+  .eto-export-section-table td:nth-child(1),
+  .eto-export-section-table td:nth-child(2),
+  .eto-export-section-table td:nth-child(3) {
+    width: 100% !important;
+    display: block !important;
+  }
+}
+@media (max-width: 450px) {
+  .box-header>.box-title {
+    display: none;
+  }
+  .box-header>.box-tools {
+    width: 100% !important;
+    display: block !important;
+    position: relative;
+  }
+}
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  margin: 2px 0 !important;
+  white-space: nowrap !important;
+}
+.eto-action-form {
+  display: inline-block;
+}
+.dropdown-menu .eto-action-form {
+  display: block;
+}
+.dropdown-menu>li.eto-action-form>a {
+  display: flex;
+}
+.eto-box-header {
+  left: -10px;
+  right: 0;
+  margin-right: -13px;
+}
+.eto-box-header .box-tools {
+  right: 0;
+  display: flex;
+}
+.eto-box-header .box-tools .btn-group,
+.eto-box-header .box-tools div.eto-btn-search-all,
+.eto-box-header .box-tools .eto-field-search {
+  display: inline-flex;
+}
+.eto-box-header .box-tools div.eto-btn-search-all,
+.eto-box-header .box-tools .btn-group button {
+  height: 30px;
+}
+.eto-box-header .box-tools .eto-field-search {
+  margin-top: -6px;
+}
+.eto-box-header .box-tools div.eto-btn-search-all {
+  margin-top: -4px;
+}
+.eto-box-header .box-tools .eto-field-search .eto-field-value input {
+  border: 1px solid #ccc;
+  padding: 4px 12px;
+}
+.eto-box-header .box-tools .eto-field-search .eto-field-placeholder {
+  top: 0;
+  left: 10px;
+}
+.eto-export-section.eto-item .select2-search__field {
+  width: 100% !important;
+}
+.eto-permission {
+  margin-bottom: 5px;
+}
+.eto-permission-list {
+  margin-bottom: 10px;
+}
+.eto-permission-item {
+  margin-bottom: 2px;
+  border-top: 1px #f5f5f5 solid;
+  padding: 5px 0;
+  clear: both;
+}
+.eto-permission-item:first-child {
+  border-top: 0 !important;
+}
+.eto-permission-item label {
+  background: #dd4b39;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 14px;
+}
+.list-group-item .eto-permission-item label {
+  cursor: default;
+}
+.eto-permission-item label:hover {
+  background: #ce4636;
+}
+.eto-permission-item input[type="checkbox"] {
+  float: left;
+  margin-right: 5px;
+  display: none;
+}
+.eto-permission-item label.eto-check-label-active,
+.eto-permission-item input[type="checkbox"]:checked+label {
+  background: #4caf50;
+  color: #fff;
+}
+.eto-permission-item label.eto-check-label-active,
+.eto-permission-item input[type="checkbox"]:checked+label:hover {
+  background: #4aa74d;
+}
+.eto-permission-list-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.eto-permission-item-group {
+  /* float: left; */
+  padding-top: 3px;
+}
+.eto-permission-item-group .select2-hidden-accessible {
+  width: 300px !important;
+}
+.eto-permission-item-group>span {
+  display: inline-block;
+}
+.eto-permission-item-group>span.eto-inline {
+  float: left;
+  margin-right: 10px;
+}
+.eto-permission-item-group .eto-delete-permission {
+  color: #CE0000;
+  cursor: pointer;
+}
+.eto-check-inline {
+  display: inline-block;
+  padding-right: 5px;
+}
+.eto-permission-item-actions {
+  /* float: right; */
+  padding-top: 2px;
+  /* text-align: right; */
+}
+.eto-permission-item-group-name {
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .eto-permission-item-group,
+  .eto-permission-item-actions {
+    float: none;
+    text-align: left;
+  }
+}
+.eto-field-search-all>* {
+  display: inline-block;
+  cursor: pointer;
+}
+.field-department input {
+  width: 90%;
+}
+.field-department i {
+  color: #dd0600;
+}
+.field-department input,
+.field-department i {
+  display: inline-block;
+}
+.eto-roles-btn-margin {
+  margin-left: 10px !important;
+}
+.eto-debug-table {
+  float: left;
+  margin-right: 40px;
+  margin-bottom: 40px;
+}
+.eto-debug-line {
+  border-bottom: 1px #f2f2f2 solid;
+}
+.eto-debug-line td {
+  padding: 2px 5px 2px 0;
+  vertical-align: top;
+}
+.eto-debug-table .eto-debug-line:last-child {
+  border-bottom: 0;
+}
+.eto-debug-name {
+  display: inline-block;
+  width: 150px;
+  color: gray;
+}
+.eto-debug-value {
+  display: inline-block;
+  max-width: 280px;
+}
+.eto-debug-buttons .btn {
+  margin-bottom: 5px;
+}
+.eto-manage-sources-item {
+  margin-bottom: 5px;
+}
+.eto-manage-sources-item-input {
+  float: left;
+  width: 300px;
+}
+.eto-manage-sources-item-delete {
+  float: left;
+}
+.eto-manage-sources-item-save {
+  margin-right: 10px;
+}
+.eto-container-add-new-source {
+  border-top: 1px #d2d6de solid;
+  border-bottom: 1px #d2d6de solid;
+}
+.eto-btn-add-new-source {
+  text-align: left;
+}

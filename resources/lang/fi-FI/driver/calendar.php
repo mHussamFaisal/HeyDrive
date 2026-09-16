@@ -1,0 +1,51 @@
+<?php
+
+return [
+    'page_title' => 'Kalenteri',
+    'subtitle' => [
+        'edit' => 'Muokkaa',
+        'create' => 'Lisää',
+        'event' => 'Tapahtuma',
+        'job' => 'Työ',
+    ],
+    'name' => 'Otsikko',
+    'description' => 'Huomautus',
+    'start_at' => 'Aloituspäivä',
+    'end_at' => 'Lopetuspäivä',
+    'repeat_type' => 'Toista',
+    'repeat_end' => 'Päättyy',
+    'repeat_interval' => 'Toista joka',
+    'repeat_limit' => 'Päättyy tapahtumien jälkeen',
+    'ordering' => 'Tilaustiedot',
+    'status' => 'Tila',
+    'repeat_days_title' => 'Toista',
+    'repeat_days_0' => 'Sunnuntai',
+    'repeat_days_1' => 'Maanantai',
+    'repeat_days_2' => 'Tiistai',
+    'repeat_days_3' => 'Keskiviikko',
+    'repeat_days_4' => 'Torstai',
+    'repeat_days_5' => 'Perjantai',
+    'repeat_days_6' => 'Lauantai',
+    'options' => [
+        'repeat_type' => [
+            'none' => 'Ei mitään',
+            'daily' => 'Päivittäin',
+            'weekly' => 'Viikoittain',
+            'monthly' => 'Kuukausittain',
+            'yearly' => 'Vuosittain',
+        ],
+    ],
+    'button' => [
+        'create' => 'Lisää',
+        'edit' => 'Muokkaa',
+        'destroy' => 'Poista',
+        'update' => 'Päivitä',
+        'back' => 'Takaisin',
+        'cancel' => 'Peru',
+    ],
+    'message' => [
+        'store_success' => 'Päivitetty onnistuneesti.',
+        'update_success' => 'Päivitetty onnistuneesti.',
+        'destroy_success' => 'Poistettu onnistuneesti.',
+    ],
+];

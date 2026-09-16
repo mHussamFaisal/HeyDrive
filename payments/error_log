@@ -1,0 +1,14 @@
+[08-Apr-2026 16:27:41 Europe/Berlin] PHP Parse error:  syntax error, unexpected '|', expecting '{' in /home/versjspr/taxisdispatch.com/payments/payment_config.php on line 83
+[08-Apr-2026 16:27:41 Europe/Berlin] PHP Parse error:  syntax error, unexpected '|', expecting '{' in /home/versjspr/taxisdispatch.com/payments/payment_config.php on line 83
+[20-Apr-2026 12:18:13 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'gateway_transaction_id' in 'INSERT INTO' in /home/versjspr/taxisdispatch.com/payments/payment_config.php:58
+Stack trace:
+#0 /home/versjspr/taxisdispatch.com/payments/payment_config.php(58): PDOStatement->execute(Array)
+#1 /home/versjspr/taxisdispatch.com/payments/process.php(34): log_payment(21, 'TDD3CF9510', 'cash', 10, 'pending')
+#2 {main}
+  thrown in /home/versjspr/taxisdispatch.com/payments/payment_config.php on line 58
+[20-Apr-2026 12:18:15 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'gateway_transaction_id' in 'INSERT INTO' in /home/versjspr/taxisdispatch.com/payments/payment_config.php:58
+Stack trace:
+#0 /home/versjspr/taxisdispatch.com/payments/payment_config.php(58): PDOStatement->execute(Array)
+#1 /home/versjspr/taxisdispatch.com/payments/process.php(34): log_payment(21, 'TDD3CF9510', 'cash', 10, 'pending')
+#2 {main}
+  thrown in /home/versjspr/taxisdispatch.com/payments/payment_config.php on line 58

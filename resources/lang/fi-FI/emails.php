@@ -1,0 +1,130 @@
+<?php
+
+return [
+    'install_welcome' => [
+        'subject' => 'Instalation data for :name application',
+        'greeting' => 'Dear',
+        'license_key' => 'The installation was carried out for the license key  :key',
+        'login_data' => 'Below are the login details for your ETO application.',
+        'login_email' => 'Email: :email',
+        'login_password' => 'Password: :password',
+    ],
+    'fleet_report' => [
+        'greeting' => 'Dear :Name, please find your report below.',
+    ],
+    'driver_report' => [
+        'greeting' => 'Dear :Name, please find your report below.',
+    ],
+    'customer_booking_created' => [
+        'subject' => 'Varaustiedot :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Löydät varaustietosi alta.',
+        'note_line1' => 'Pidä puhelinnumeromme aina käsillä. Sinun on soitettava meille heti, jos sinulla on vaikeuksia paikantaa kuljettajaasi. Mikäli tilauksesi tapahtuu toimistomme aukioloaikojen ulkopuolella, sinulle annetaan kuljettajan matkapuhelinnumero.',
+        'note_line2' => 'Suoraan kuljettajalle tehdyt varaukset ovat laittomia, ja onnettomuustapauksissa vakuutus ei kata sinua.',
+        'note_line3' => 'For Airport pickups, the driver will be waiting in the terminal (meeting point) with a sign with your name (please switch on your mobile once landed). When the pickup is from an address, the driver will be waiting in front of the door. If there are parking restrictions, he will be waiting around pickup location (the closest spot).',
+        'section' => [
+            'journey_details' => 'Tilaustiedot',
+            'customer_details' => 'Asiakkaan tiedot',
+            'lead_passenger_details' => 'Asiakkaan tiedot',
+            'reservation_details' => 'Varaustiedot',
+            'general_details' => 'Yleiset varaustiedot',
+        ],
+    ],
+    'customer_booking_changed' => [
+        'subject' => 'Tilan päivitys :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Varauksesi :ref_number tila on vaihtunut :status.',
+    ],
+    'customer_booking_driver' => [
+        'subject' => 'Kuljtettajan tiedot :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Löydät kuljettajasi tiedot alta.',
+        'booking' => 'Varaus',
+        'driver' => 'Kuljettaja',
+        'vehicle' => 'Tilaus',
+    ],
+    'customer_booking_onroute' => [
+        'subject' => 'Kuljettajan tila :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Kuljettajasi on matkalla.',
+        'booking' => 'Varaus',
+        'driver' => 'Kuljettaja',
+        'vehicle' => 'Tilaus',
+    ],
+    'customer_booking_completed' => [
+        'subject' => 'Palaute :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Kiitos kun käytit :company_name matkallesi.',
+        'line2' => 'Kuulisimme mielellämme palautteesi varauksesta :ref_number jonka olet viime aikoina tehnyt kanssamme.',
+        'line3' => 'Jättääksesi palautteesi, klikkaa tästä :link.',
+        'link' => 'linkki',
+    ],
+    'customer_booking_quoted' => [
+        'subject' => 'Tarjouspyyntö',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Kiitos tarjouspyynnöstäsi. Olemme sinuun pian yhteydessä.',
+        'line2' => 'Sillä välin, tässä on yhteenveto tarjouspyyntösi tiedoista.',
+        'section' => [
+            'journey_details' => 'Tilaustiedot',
+            'customer_details' => 'Asiakkaan tiedot',
+            'lead_passenger_details' => 'Asiakkaan tiedot',
+            'general_details' => 'Yleiset tiedot',
+        ],
+    ],
+    'customer_payment_requested' => [
+        'subject' => 'Maksupyyntö :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Varmentaaksesi varauksesi suorita maksu :price.',
+        'line2' => 'Voit suorittaa maksun klikkaamalla tästä :link.',
+        'link' => 'linkki',
+    ],
+    'customer_payment_confirmed' => [
+        'subject' => 'Maksuvahvistus :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Löydät liitteenä olevan laskun alta.',
+        'line2' => 'Kiitos varauksestasi :company_name kanssa.',
+        'line3' => 'Maksu varauksesta :ref_number on :status.',
+        'status' => 'Hyväksytty ja vahvistettu',
+    ],
+    'customer_account_activation' => [
+        'subject' => 'aktivointi',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Tässä on aktivointilinkkisi.',
+    ],
+    'customer_account_welcome' => [
+        'subject' => 'Tervetuloa',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Tilisi on aktivoitu onnistuneesti. Voit nyt kirjautua sisään!',
+    ],
+    'customer_account_password' => [
+        'subject' => 'Nollaa salasana',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Tässä tunnuksesi salasanan vaihtoa varten :token',
+    ],
+    'driver_booking_changed' => [
+        'subject' => 'Työn tilan päivitys :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Työn :ref_number tila on vaihtunut :status.',
+    ],
+    'admin_booking_canceled' => [
+        'subject' => 'Varauksen peruutus :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Asiakas :customer_name on perunut varauksen :ref_number :date.',
+    ],
+    'admin_booking_changed' => [
+        'subject' => 'Työn tilan päivitys :ref_number',
+        'greeting' => 'Hei :Name',
+        'line1' => 'Työn :ref_number tila on vaihtunut tästä :old_status tähän :new_status.',
+    ],
+    'header' => [
+        'phone' => 'Puh.',
+    ],
+    'footer' => [
+        'phone' => 'Puh.',
+        'email' => 'Sähköposti',
+        'site' => 'Verkkosivu',
+        'feedback' => 'Voit jättää palautteesi :link',
+        'feedback_link' => 'tästä',
+    ],
+    'powered_by' => 'Powered by',
+];

@@ -1,0 +1,4 @@
+[06-Apr-2026 20:05:49 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/versjspr/taxisdispatch.com/app/Http/Controllers/DebugController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/app/Http/Controllers/DebugController.php on line 8

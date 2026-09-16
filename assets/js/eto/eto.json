@@ -1,0 +1,289 @@
+{
+  "dispatch.index": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "map",
+      "booking_list",
+      "booking_form",
+      "state_dispatch",
+      "google"
+    ],
+    "lang": [
+      "notifications",
+      "booking",
+      "map",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "admin.callerid.index": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "booking_list",
+      "booking_form"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "admin.bookings.create": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "booking_list",
+      "booking_form"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "admin.bookings.edit": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "booking_list",
+      "booking_form"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "admin.bookings.index": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "map",
+      "booking_list",
+      "booking_form",
+      "state_bookings",
+      "google"
+    ],
+    "lang": [
+      "notifications",
+      "booking",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "admin.bookings.show": {
+    "config": [
+      "bookingStatusColor",
+      "map_icons",
+      "notifications",
+      "driver",
+      "map",
+      "google"
+    ],
+    "lang": [
+      "notifications",
+      "booking",
+      "user"
+    ]
+  },
+  "admin.index": {
+    "config": [
+      "bookingStatusColor",
+      "driver_income",
+      "driver_income_total",
+      "map_icons",
+      "map_routes",
+      "notifications",
+      "vehicle",
+      "service",
+      "source",
+      "booking_status",
+      "payment_type",
+      "driver",
+      "map",
+      "booking_list",
+      "booking_form",
+      "google"
+    ],
+    "lang": [
+      "notifications",
+      "booking",
+      "user"
+    ],
+    "fields": [
+      "booking"
+    ]
+  },
+  "reports.new": {
+    "config": [
+      "report"
+    ],
+    "lang": [
+      "reports"
+    ]
+  },
+  "reports.index": {
+    "config": [
+      "report"
+    ],
+    "lang": [
+      "reports"
+    ]
+  },
+  "reports.trashIndex": {
+    "config": [
+      "report"
+    ],
+    "lang": [
+      "reports"
+    ]
+  },
+  "backup.index": {
+    "config": [
+      "backup"
+    ],
+    "lang": [
+      "backup",
+      "user"
+    ]
+  },
+  "translations.index": {
+    "lang": [
+      "translations",
+      "user"
+    ]
+  },
+  "export.index": {
+    "lang": [
+      "export"
+    ]
+  },
+  "roles.index": {
+    "lang": [
+      "roles",
+      "user"
+    ]
+  },
+  "roles.create": {
+    "lang": [
+      "roles",
+      "user"
+    ]
+  },
+  "roles.edit": {
+    "lang": [
+      "roles",
+      "user"
+    ]
+  },
+  "customer.index": {
+    "config": [
+      "google",
+      "bookingStatusColor"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ]
+  },
+  "booking.details": {
+    "config": [
+      "google",
+      "bookingStatusColor"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ]
+  },
+  "driver.jobs.show": {
+    "config": [
+      "google",
+      "bookingStatusColor"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ]
+  },
+   "supplier.jobs.show": {
+    "config": [
+      "google",
+      "bookingStatusColor"
+    ],
+    "lang": [
+      "booking",
+      "user"
+    ]
+  },
+  "subscription.index": {
+    "config": [],
+    "lang": [
+      "backup",
+      "user",
+      "subscription"
+    ]
+  }
+}

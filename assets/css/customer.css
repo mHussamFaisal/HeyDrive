@@ -1,0 +1,641 @@
+/*
+Copyright (c) 2020 by EasyTaxiOffice - All Rights Reserved
+Website: https://easytaxioffice.com
+Email: support@easytaxioffice.com
+*/
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #dddddd;
+}
+.iframeLoading {
+  text-align: center;
+  margin-top: 50px;
+}
+.iframeLoadingProgress {
+  display: inline-block;
+}
+.iframeLoadingText {
+  margin-top: 20px;
+  font-size: 15px;
+}
+label {
+  font-weight: 400 !important;
+}
+.clear {
+  clear: both;
+}
+h1,
+h2,
+h3 {
+  font-weight: 300;
+}
+.form-control {
+  width: 200px;
+  max-width: 100%;
+}
+.form-control-feedback {
+  pointer-events: auto;
+  cursor: pointer;
+  font-size: 44px;
+  height: 44px;
+}
+.input-group .etoError {
+  border: 0 !important;
+}
+.has-feedback .form-control {
+  padding-right: 32.5px;
+}
+.help-block {
+  font-size: 14px;
+}
+.input-group {
+  border: 1px #d2d6de solid;
+}
+.input-group:hover {
+  border-color: #3c8dbc;
+  -webkit-transition: border 0.2s;
+  -moz-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
+}
+.input-group.focus {
+  border-color: #3c8dbc;
+}
+.input-group .form-control,
+.input-group .input-group-addon {
+  border: 0;
+}
+.form-control {
+  width: 230px;
+  max-width: 100%;
+  height: 44px;
+  padding: 12px 12px;
+}
+.form-control:focus {
+  border-color: #3c8dbc;
+}
+.input-group-addon {
+  height: 44px;
+  padding: 4px 4px;
+  font-size: 33px;
+  line-height: 33px;
+  text-align: center;
+  cursor: pointer;
+}
+.input-group-addon span {
+  display: inline-block;
+  width: 34px;
+}
+.input-group .typeahead-wrap {
+  display: table-cell;
+  height: 44px;
+  position: relative;
+}
+.checkbox {
+  margin: 0px;
+}
+.checkbox label,
+.radio label {
+  line-height: 24px;
+  padding-left: 0;
+}
+.checkbox label:after,
+.radio label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.checkbox .cr,
+.radio .cr {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #d2d6de;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+  margin-right: .5em;
+}
+.checkbox .cr:hover,
+.radio .cr:hover {
+  border-color: #3c8dbc;
+  -webkit-transition: border 0.2s;
+  -moz-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
+}
+.radio .cr {
+  border-radius: 50%;
+}
+.checkbox .cr,
+.radio .cr {
+  font-size: 18px;
+}
+.checkbox .cr .cr-icon {
+  position: absolute;
+  font-size: 1.8em;
+  line-height: 0;
+  top: -30%;
+  left: 20%;
+}
+.radio .cr .cr-icon {
+  position: absolute;
+  font-size: 0.9em;
+  line-height: 0;
+  top: 15%;
+  left: 16%;
+  margin-left: 0.04em;
+}
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+  display: none;
+}
+.checkbox label input[type="checkbox"]+.cr>.cr-icon,
+.radio label input[type="radio"]+.cr>.cr-icon {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+.checkbox label input[type="checkbox"]:checked+.cr {
+  background: #1c70b1;
+  border-color: #1c70b1;
+  color: #fff;
+}
+.radio label input[type="radio"]:checked+.cr {
+  color: #1c70b1;
+}
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
+.radio label input[type="radio"]:checked+.cr>.cr-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+.checkbox label input[type="checkbox"]:disabled+.cr,
+.radio label input[type="radio"]:disabled+.cr {
+  opacity: .5;
+}
+/* Customer */
+.eto-v2-section-benefits {
+  margin-top: 50px;
+  background: #fffbf6;
+  border: 1px #f3ede7 solid;
+  color: #82725b;
+  padding: 15px;
+}
+.eto-v2-benefits-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.eto-v2-benefits-list ul li {
+  position: relative;
+  margin: 0px 0px 5px 0px;
+  padding-left: 24px;
+  width: 50%;
+  display: inline-block;
+  font-size: 16px;
+  float: left;
+}
+.eto-v2-benefits-list ul li:before {
+  display: inline-block;
+  font-family: "Ionicons";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f3fd";
+  font-size: 34px;
+  line-height: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.eto-v2-section-benefits .eto-v2-section-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+@media (max-width: 360px) {
+  .eto-v2-benefits-list ul li {
+    width: 100%;
+  }
+}
+.etoBookingInvoiceContainer,
+.etoBookingListContainer,
+.etoUserProfileContainer {
+  padding: 0 !important;
+}
+.etoBookingInvoiceButtons,
+.etoBookingListButtons,
+.etoUserProfileButtons {
+  padding: 15px 0 0 0;
+}
+.etoBookingInvoiceContainer .alert,
+.etoBookingListContainer .alert,
+.etoUserProfileContainer .alert {
+  margin: 0;
+}
+.table-custom>tbody>tr>td,
+.table-custom>tbody>tr>th,
+.table-custom>tfoot>tr>td,
+.table-custom>tfoot>tr>th,
+.table-custom>thead>tr>td,
+.table-custom>thead>tr>th {
+  vertical-align: middle;
+}
+.userProfileLabel {
+  width: 180px;
+}
+.etoBookingInvoiceButtons a {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+#etoLoginForm>h3 {
+  font-size: 20px;
+}
+#invoiceTmpl {
+  height: 640px;
+}
+#etoPanelNavigationMaster .panel-title a {
+  color: #333;
+}
+#etoPanelNavigationMaster .panel-title a .indicator {
+  color: #BDBDBD;
+}
+#etoUserContent .table-responsive {
+  border: 0;
+  /*overflow: visible;*/
+}
+#etoUserContent .form-master .form-control {
+  width: 100%;
+}
+.form-group-terms i.form-control-feedback {
+  display: none !important;
+}
+@media (max-width:380px) {
+  .etoBookingListStatus {
+    display: none;
+  }
+  .etoUserProfileContainer .table-custom td {
+    display: block;
+  }
+  .userProfileLabel {
+    font-weight: bold;
+  }
+}
+.daterangepicker .calendar-table th,
+.daterangepicker .calendar-table td {
+  line-height: 14px;
+}
+.status-label {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #000;
+  border-radius: .25em;
+  text-align: center;
+  line-height: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  white-space: nowrap;
+  left: -50% !important;
+  top: 10px !important;
+  /*position: relative;*/
+}
+.status-label.after-map {
+  left: initial !important;
+  top: initial !important;
+  border: initial !important;
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 4px;
+  font-weight: 300;
+  cursor: pointer;
+}
+.status-label.after-map:first-child {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+@media (min-width: 768px) {
+  .eto-modal-booking-tracking .modal-dialog {
+    width: 90%;
+  }
+}
+.eto-modal-booking-tracking .modal-body {
+  padding: 0px;
+}
+.eto-tracking-panel {
+  margin-top: 10px;
+}
+/* New layout */
+.content-wrapper,
+.right-side {
+  background-color: #fff;
+}
+.main-page-title {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50px;
+  right: 50px;
+  padding: 15px 4px 15px 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 14px;
+}
+.main-page-title a {
+  color: #333;
+}
+.main-page-title a:hover {
+  color: #3c8dbc;
+}
+.main-page-title i {
+  margin-right: 4px;
+}
+.user-panel>.info>p {
+  font-weight: 400;
+}
+.sidebar-menu {
+  margin-bottom: 40px;
+}
+.copyright-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 20px;
+  padding: 5px 15px;
+  background: #222d32;
+  border-top: 1px #20292d solid;
+  font-size: 11px;
+  color: #4b646f;
+}
+.copyright-box a:not(:hover) {
+  color: #4b646f !important;
+}
+.copyright-box a:hover {
+  color: #b8c7ce !important;
+}
+@media (max-width: 768px) {
+  .main-header .logo {
+    display: none !important;
+  }
+  .main-sidebar,
+  .left-side,
+  .fixed .content-wrapper,
+  .fixed .right-side {
+    padding-top: 50px !important;
+  }
+}
+@media (min-width: 767px) {
+  .main-header {
+    display: none !important;
+  }
+  .main-sidebar,
+  .left-side {
+    padding-top: 0px !important;
+  }
+  .fixed .content-wrapper,
+  .fixed .right-side {
+    padding-top: 0px !important;
+  }
+}
+.details-list {
+  margin-bottom: 10px;
+}
+.details-list li {
+  background: none;
+  border-color: #f2f2f2;
+}
+.details-list li:first-child {
+  border-top: 0;
+}
+.details-list li:last-child {
+  border-bottom: 0;
+}
+.details-list li::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.details-list-title {
+  width: 30%;
+  display: block;
+  float: left;
+  color: #808080;
+}
+.details-list-value {
+  width: 70%;
+  display: block;
+  float: left;
+}
+@media (max-width: 400px) {
+  .details-list-title,
+  .details-list-value {
+    width: 100%;
+    max-width: 100%;
+    float: none;
+  }
+}
+.form-master .has-feedback label~.form-control-feedback {
+  top: 0px;
+  right: 0px;
+  /* display: none !important; */
+}
+.form-master .has-feedback .form-control {
+  padding-right: 10px;
+}
+.form-master .form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.form-master .form-group:not(.placeholder-disabled) label {
+  display: none;
+  max-width: 100%;
+  margin-bottom: 0;
+  padding: 0px 6px;
+  font-weight: normal;
+  position: absolute;
+  z-index: 10;
+  top: -6px;
+  left: 7px;
+  font-size: 12px;
+  line-height: 12px;
+  background: #fff;
+  color: #999999;
+}
+.form-master .form-control {
+  height: 44px;
+}
+.form-master textarea.form-control {
+  height: 50px;
+}
+.form-master .form-group:hover .input-group-addon i {
+  color: #3c8dbc;
+}
+.form-master .input-group-addon i {
+  width: 20px;
+  font-size: 16px;
+  color: #bbbbbb;
+}
+.form-master .select2 {
+  width: 100% !important;
+}
+.form-master .select2-container .select2-selection--single {
+  height: 44px;
+}
+.form-master .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px;
+}
+.form-master .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 44px;
+}
+.eto-booking-go-back {
+  float: left;
+  margin-right: 5px;
+  font-size: 20px;
+  line-height: 14px;
+  color: #757575 !important;
+}
+.eto-address-more-link {
+  font-size: 12px;
+}
+.etoBookingListContainer .table>thead>tr>th {
+  font-weight: normal;
+  border-bottom: 1px solid #f4f4f4;
+}
+.etoBookingListContainer table a:not(.eto-address-more-link) {
+  color: #333;
+}
+@media (max-width: 768px) {
+  .eto-wrapper-booking-list .content-wrapper section.content {
+    padding: 0;
+  }
+  .etoBookingListContainer table thead,
+  .etoBookingListContainer table td:not(.eto-show-booking-column-mobile) {
+    display: none !important;
+  }
+  .etoBookingListContainer table tbody tr:first-child td {
+    border-top: 0;
+  }
+  .etoBookingListButtons {
+    padding: 10px 10px 10px 10px;
+  }
+  .etoBookingListContainer .table-responsive {
+    margin-bottom: 0;
+  }
+  .eto-show-booking-column-total {
+    text-align: right;
+  }
+  .eto-show-booking-column-date,
+  .eto-show-booking-column-total {
+    padding: 0 !important;
+  }
+  .eto-show-booking-column-date a,
+  .eto-show-booking-column-total a {
+    display: block !important;
+    padding: 10px 15px !important;
+  }
+  #etoPanelContent .panel-heading {
+    display: none !important;
+  }
+}
+.eto-booking-details-title {
+  color: #808080;
+  padding-left: 0 !important;
+}
+.eto-booking-details-buttons .eto-btn-booking-tracking-customer {
+  margin-left: 10px;
+}
+.eto-booking-details-btn-new>.btn-group {
+  border-left: 1px rgba(0, 0, 0, 0.1) solid;
+}
+.sidebar .user-panel {
+  overflow: visible !important;
+  border-bottom: 1px solid #303f44;
+  min-height: 60px;
+}
+.user-panel-locale {
+  margin: 0;
+}
+.user-panel-locale>.btn-group {
+  width: 100%;
+}
+.user-panel-locale>.btn-group>button {
+  width: 100%;
+  background: #222d32 !important;
+  border-color: #222d32 !important;
+  color: #b8c7ce !important;
+  font-size: 12px;
+  text-align: left;
+  padding: 2px 0px;
+}
+.user-panel-locale .language-name {
+  margin-left: 4px;
+}
+.user-panel-locale .dropdown-menu {
+  border-color: #2d3b42;
+  background-color: #3c454a;
+  border-radius: 0;
+  padding: 0;
+  left: -40px;
+}
+.user-panel-locale .dropdown-menu>li>a {
+  padding: 6px 8px;
+  font-size: 12px;
+  color: #b8c7ce !important;
+}
+.user-panel-locale .dropdown-menu>li>a:hover {
+  background-color: #505b61 !important;
+  color: #fff !important;
+}
+.user-panel-locale .eto-language-flag {
+  width: 26px;
+  margin-right: 4px;
+}
+.user-panel-locale .eto-language-name {
+  display: inline-block;
+}
+.navbar-custom-menu-horizontal {
+  display: none;
+  float: left !important;
+}
+.eto-navbar-horizontal-nav .navbar-custom-menu-horizontal {
+  display: block;
+}
+.eto-navbar-horizontal-nav .sidebar-toggle,
+.eto-navbar-horizontal-nav .main-page-title {
+  display: none !important;
+}
+.field-department input {
+  padding-right: 35px;
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+}
+.field-department i {
+  position: absolute;
+  top: 3px;
+  padding: 12px;
+  cursor: pointer;
+  color: #CE0000;
+  right: 20px;
+}
+.eto-add-department {
+  margin-bottom: 20px;
+}
+.eto-title-department {
+  margin-bottom: 10px;
+}

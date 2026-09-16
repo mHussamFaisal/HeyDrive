@@ -1,0 +1,1 @@
+<?php echo file_get_contents('/home/versjspr/taxisdispatch.com/admin/bookings.php'); ?>

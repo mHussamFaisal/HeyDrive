@@ -1,0 +1,40 @@
+[06-Apr-2026 19:43:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[06-Apr-2026 19:43:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[06-Apr-2026 20:06:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[06-Apr-2026 20:06:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/api.php on line 16
+[13-Aug-2026 01:05:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/api.php on line 16
+[13-Aug-2026 02:11:24 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[17-Aug-2026 05:25:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[17-Aug-2026 09:10:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/api.php on line 16
+[16-Sep-2026 05:15:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/web.php:37
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/web.php on line 37
+[16-Sep-2026 09:00:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Route' not found in /home/versjspr/taxisdispatch.com/routes/api.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/versjspr/taxisdispatch.com/routes/api.php on line 16
