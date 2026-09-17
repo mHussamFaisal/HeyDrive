@@ -29,24 +29,6 @@ try {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 } catch (Exception $e) {}
 
-// Auto-sync real customers from bookings if user count is low
-try {
-    $user_count = (int)$pdo->query("SELECT COUNT(*) FROM td_users")->fetchColumn();
-    if ($user_count <= 2) {
-        $pdo->exec("INSERT IGNORE INTO td_users (name, email, phone, role, status, created_at)
-            SELECT 
-                b.customer_name, 
-                LOWER(TRIM(b.customer_email)), 
-                b.customer_phone, 
-                'customer', 
-                'active', 
-                COALESCE(MIN(b.created_at), NOW())
-            FROM td_bookings b
-            WHERE b.customer_email IS NOT NULL AND TRIM(b.customer_email) != ''
-            GROUP BY LOWER(TRIM(b.customer_email))");
-    }
-} catch (Exception $e) {}
-
 // Current active filter
 $cur_role = trim($_GET['role'] ?? '');
 $cur_tab  = trim($_GET['tab'] ?? '');
