@@ -127,34 +127,46 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
             <td class="text-muted">Status:</td>
             <td><span class="badge bg-success px-3 py-1">Approved</span></td>
           </tr>
-          <?php if (!empty($driver['phone'])): ?>
+          <?php if (!empty($driver['activity_status']) && $driver['activity_status'] !== 'Unavailable'): ?>
           <tr>
             <td class="text-muted">Driver activity status:</td>
-            <td><?= htmlspecialchars($driver['activity_status'] ?: 'Available') ?></td>
+            <td><?= htmlspecialchars($driver['activity_status']) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['dob']) && $driver['dob'] != '0000-00-00'): ?>
           <tr>
             <td class="text-muted">Date of birth:</td>
-            <td><?= !empty($driver['dob']) && $driver['dob'] != '0000-00-00' ? date('d/m/Y', strtotime($driver['dob'])) : '03/09/2002' ?></td>
+            <td><?= date('d/m/Y', strtotime($driver['dob'])) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['phone'])): ?>
           <tr>
             <td class="text-muted">Mobile number:</td>
             <td><?= htmlspecialchars($driver['phone']) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['address'])): ?>
           <tr>
             <td class="text-muted">Address:</td>
-            <td><?= htmlspecialchars($driver['address'] ?: 'Gablonzer Straße 13') ?></td>
+            <td><?= htmlspecialchars($driver['address']) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['city'])): ?>
           <tr>
             <td class="text-muted">City:</td>
-            <td><?= htmlspecialchars($driver['city'] ?: 'Munich') ?></td>
+            <td><?= htmlspecialchars($driver['city']) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['postcode']) && !empty($driver['address'])): ?>
           <tr>
             <td class="text-muted">Postcode:</td>
-            <td><?= htmlspecialchars($driver['postcode'] ?? '80937') ?></td>
+            <td><?= htmlspecialchars($driver['postcode']) ?></td>
           </tr>
+          <?php endif; ?>
+          <?php if (!empty($driver['country']) && !empty($driver['address'])): ?>
           <tr>
             <td class="text-muted">County:</td>
-            <td><?= htmlspecialchars($driver['country'] ?: 'Germany') ?></td>
+            <td><?= htmlspecialchars($driver['country']) ?></td>
           </tr>
           <?php endif; ?>
           <tr>
