@@ -85,6 +85,10 @@ function format_membership_duration($created_at) {
         $weeks = floor($diff->d / 7);
         if ($weeks > 0) {
             $parts[] = intval($weeks) . ' ' . (intval($weeks) === 1 ? 'week' : 'weeks');
+        } elseif ($diff->d > 0) {
+            $parts[] = intval($diff->d) . ' ' . (intval($diff->d) === 1 ? 'day' : 'days');
+        } elseif ($diff->h > 0) {
+            $parts[] = intval($diff->h) . ' ' . (intval($diff->h) === 1 ? 'hour' : 'hours');
         }
     } elseif ($diff->d >= 7) {
         $weeks = floor($diff->d / 7);
