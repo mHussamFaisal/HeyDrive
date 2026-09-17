@@ -74,6 +74,11 @@ function format_membership_duration($created_at) {
         $parts[] = $diff->y . ' ' . ($diff->y === 1 ? 'year' : 'years');
         if ($diff->m > 0) {
             $parts[] = $diff->m . ' ' . ($diff->m === 1 ? 'month' : 'months');
+        } else {
+            $weeks = floor($diff->d / 7);
+            if ($weeks > 0) {
+                $parts[] = intval($weeks) . ' ' . (intval($weeks) === 1 ? 'week' : 'weeks');
+            }
         }
     } elseif ($diff->m > 0) {
         $parts[] = $diff->m . ' ' . ($diff->m === 1 ? 'month' : 'months');

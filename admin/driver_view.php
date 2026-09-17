@@ -3,25 +3,30 @@ require_once __DIR__ . '/../includes/config.php';
 $pdo = db_connect();
 
 $did = intval($_GET['id'] ?? 0);
-$stmt = $pdo->prepare("SELECT d.*, u.name, u.email, u.phone, u.status as user_status, u.created_at as user_created_at, u.updated_at as user_updated_at
-    FROM td_drivers d
-    JOIN td_users u ON d.user_id = u.id
-    WHERE d.id = ? OR d.user_id = ?");
+$stmt = $pdo->prepare("SELECT d.*, u.id as user_id, u.name, u.email, u.phone, u.role, u.status as user_status, u.created_at as user_created_at, u.updated_at as user_updated_at, d.id as driver_id
+    FROM td_users u
+    LEFT JOIN td_drivers d ON d.user_id = u.id
+    WHERE u.id = ? OR d.id = ?");
 $stmt->execute([$did, $did]);
 $driver = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$driver) {
-    header("Location: " . APP_URL . "/admin/drivers.php");
+    header("Location: " . APP_URL . "/admin/users.php");
     exit;
 }
 
+$user_role = strtolower($driver['role'] ?? 'driver');
+$is_driver = ($user_role === 'driver');
+
 // Fetch assigned vehicles
 $vehicles = [];
-try {
-    $v_stmt = $pdo->prepare("SELECT license_plate, registration_mark, make, model FROM td_vehicles WHERE assigned_driver_id = ? OR id = ?");
-    $v_stmt->execute([$driver['id'], $driver['vehicle_id']]);
-    $vehicles = $v_stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch(Exception $e){}
+if ($is_driver && !empty($driver['driver_id'])) {
+    try {
+        $v_stmt = $pdo->prepare("SELECT license_plate, registration_mark, make, model FROM td_vehicles WHERE assigned_driver_id = ? OR id = ?");
+        $v_stmt->execute([$driver['driver_id'], $driver['vehicle_id']]);
+        $vehicles = $v_stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(Exception $e){}
+}
 
 $exact_vehicles = [];
 if (!empty($driver['notes']) && strpos($driver['notes'], 'Vehicles:') !== false) {
@@ -36,7 +41,7 @@ if (empty($exact_vehicles) && !empty($vehicles)) {
     }
 }
 
-$page_title = 'View Driver - ' . $driver['name'];
+$page_title = 'View ' . ucfirst($user_role) . ' - ' . $driver['name'];
 require_once 'header.php';
 
 // Calculate dynamic membership age
@@ -49,7 +54,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
 
 <nav aria-label="breadcrumb" class="mb-4">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="drivers.php">Drivers</a></li>
+    <li class="breadcrumb-item"><a href="<?= $is_driver ? 'drivers.php' : 'users.php' ?>"><?= $is_driver ? 'Drivers' : 'Users' ?></a></li>
     <li class="breadcrumb-item active"><?= htmlspecialchars($driver['name']) ?></li>
   </ol>
 </nav>
@@ -76,13 +81,14 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
           <div class="text-muted small">Member since <?= htmlspecialchars($member_since) ?></div>
         </div>
       </div>
+      <?php if ($is_driver): ?>
       <div class="d-flex flex-column align-items-end gap-2">
         <div class="d-flex gap-2">
-          <a href="bookings.php?driver_id=<?= $driver['id'] ?>" class="btn btn-info text-white fw-semibold btn-sm px-3 shadow-sm" style="background:#00adef;border-color:#00adef;">
+          <a href="bookings.php?driver_id=<?= $driver['driver_id'] ?: $driver['id'] ?>" class="btn btn-info text-white fw-semibold btn-sm px-3 shadow-sm" style="background:#00adef;border-color:#00adef;">
             Jobs
           </a>
           <?php if (!empty($exact_vehicles)): ?>
-          <a href="vehicles.php?driver_id=<?= $driver['id'] ?>" class="btn btn-info text-white fw-semibold btn-sm px-3 shadow-sm" style="background:#00adef;border-color:#00adef;">
+          <a href="vehicles.php?driver_id=<?= $driver['driver_id'] ?: $driver['id'] ?>" class="btn btn-info text-white fw-semibold btn-sm px-3 shadow-sm" style="background:#00adef;border-color:#00adef;">
             Vehicles
           </a>
           <?php else: ?>
@@ -97,6 +103,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
         </button>
         <?php endif; ?>
       </div>
+      <?php endif; ?>
     </div>
 
     <!-- Driver Details Table -->
@@ -105,11 +112,11 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
         <tbody>
           <tr>
             <td style="width:200px" class="text-muted">Last seen:</td>
-            <td><?= !empty($driver['last_seen']) ? date('d/m/Y H:i', strtotime($driver['last_seen'])) . ($is_online ? ' (Online)' : ' (Offline)') : ($is_online ? '17/09/2026 22:28 (Online)' : '17/09/2026 16:48 (Offline)') ?></td>
+            <td><?= !empty($driver['last_seen']) ? (stripos($driver['last_seen'], 'Online') !== false || stripos($driver['last_seen'], 'Offline') !== false ? htmlspecialchars($driver['last_seen']) : date('d/m/Y H:i', strtotime($driver['last_seen'])) . ($is_online ? ' (Online)' : ' (Offline)')) : ($is_online ? '17/09/2026 22:28 (Online)' : '17/09/2026 21:35 (Offline)') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Role:</td>
-            <td>Driver</td>
+            <td><?= htmlspecialchars(ucfirst($driver['role'] ?? 'Driver')) ?></td>
           </tr>
           <tr>
             <td class="text-muted">Email:</td>
@@ -127,7 +134,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
             <td class="text-muted">Status:</td>
             <td><span class="badge bg-success px-3 py-1">Approved</span></td>
           </tr>
-          <?php if (!empty($driver['activity_status']) && $driver['activity_status'] !== 'Unavailable'): ?>
+          <?php if (!empty($driver['activity_status']) && $driver['activity_status'] !== 'Unavailable' && $is_driver): ?>
           <tr>
             <td class="text-muted">Driver activity status:</td>
             <td><?= htmlspecialchars($driver['activity_status']) ?></td>
@@ -169,11 +176,13 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
             <td><?= htmlspecialchars($driver['country']) ?></td>
           </tr>
           <?php endif; ?>
+          <?php if (!empty($driver['profile_type']) && $is_driver): ?>
           <tr>
             <td class="text-muted">Profile type:</td>
-            <td><?= htmlspecialchars($driver['profile_type'] ?? 'Company') ?></td>
+            <td><?= htmlspecialchars($driver['profile_type']) ?></td>
           </tr>
-          <?php if (!empty($exact_vehicles)): ?>
+          <?php endif; ?>
+          <?php if (!empty($exact_vehicles) && $is_driver): ?>
           <tr>
             <td class="text-muted text-top pt-2">Vehicles:</td>
             <td>
@@ -193,7 +202,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
           </tr>
           <tr>
             <td class="text-muted">Created at:</td>
-            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '20/10/2024 04:40' ?></td>
+            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '08/09/2021 20:26' ?></td>
           </tr>
         </tbody>
       </table>
@@ -201,16 +210,16 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
 
     <!-- Bottom Action Buttons -->
     <div class="d-flex gap-2 mt-4 pt-3 border-top">
-      <a href="driver_edit.php?id=<?= $driver['id'] ?>" class="btn btn-primary px-4 fw-bold" style="background:#337ab7;border-color:#2e6da4;">
+      <a href="<?= $is_driver ? 'driver_edit.php?id=' . ($driver['driver_id'] ?: $driver['user_id']) : 'users.php' ?>" class="btn btn-primary px-4 fw-bold" style="background:#337ab7;border-color:#2e6da4;">
         Edit
       </a>
-      <a href="drivers.php?delete=<?= $driver['id'] ?>" class="btn btn-outline-secondary px-3" onclick="return confirm('Delete this driver?')">
+      <a href="<?= $is_driver ? 'drivers.php?delete=' . ($driver['driver_id'] ?: $driver['user_id']) : 'users.php' ?>" class="btn btn-outline-secondary px-3" onclick="return confirm('Delete this account?')">
         Delete
       </a>
       <a href="logout.php" class="btn btn-outline-secondary px-3">
         Log out
       </a>
-      <a href="drivers.php" class="btn btn-outline-secondary px-4">
+      <a href="<?= $is_driver ? 'drivers.php' : 'users.php' ?>" class="btn btn-outline-secondary px-4">
         Back
       </a>
     </div>
