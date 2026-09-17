@@ -242,7 +242,7 @@ $per_page = 25;
 $offset = ($page - 1) * $per_page;
 
 function fetch_bookings($pdo, $where, $params, $order='b.pickup_datetime ASC', $limit=25, $offset=0) {
-    $sql = "SELECT b.*, COALESCE(u.name,'—') as driver_name, u.phone as driver_phone, u.email as driver_email, v.name as vehicle_name
+    $sql = "SELECT b.*, COALESCE(u.name, b.driver_name, '—') as driver_name, u.phone as driver_phone, u.email as driver_email, COALESCE(v.name, b.vehicle_name, '') as vehicle_name
             FROM td_bookings b
             LEFT JOIN td_drivers d ON b.driver_id=d.id
             LEFT JOIN td_users u ON d.user_id=u.id
@@ -253,20 +253,33 @@ function fetch_bookings($pdo, $where, $params, $order='b.pickup_datetime ASC', $
     $st = $pdo->prepare($sql); $st->execute($params); return $st->fetchAll();
 }
 
+function count_tab_bookings($pdo, $where, $params) {
+    $sql = "SELECT COUNT(*) FROM td_bookings b WHERE $where";
+    $st = $pdo->prepare($sql); $st->execute($params); return (int)$st->fetchColumn();
+}
+
 $bookings = [];
+$total_rows = 0;
 if ($tab === 'next24') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0 AND b.pickup_datetime BETWEEN NOW() AND DATE_ADD(NOW(),INTERVAL 24 HOUR)$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.pickup_datetime BETWEEN NOW() AND DATE_ADD(NOW(),INTERVAL 24 HOUR)$extra_where", $extra_params, 'b.pickup_datetime ASC', $per_page, $offset);
 } elseif ($tab === 'latest') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'unconfirmed') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0 AND b.status='pending'$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='pending'$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'completed') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0 AND b.status='completed'$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='completed'$extra_where", $extra_params, 'b.pickup_datetime DESC', $per_page, $offset);
 } elseif ($tab === 'cancelled') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0 AND b.status='cancelled'$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='cancelled'$extra_where", $extra_params, 'b.pickup_datetime DESC', $per_page, $offset);
 } elseif ($tab === 'all') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=0$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'trash') {
+    $total_rows = count_tab_bookings($pdo, "b.trashed=1$extra_where", $extra_params);
     $bookings = fetch_bookings($pdo, "b.trashed=1$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'passengers') {
     $sql = "SELECT customer_name, customer_email, customer_phone,
@@ -278,7 +291,9 @@ if ($tab === 'next24') {
             GROUP BY customer_email, customer_name, customer_phone
             ORDER BY total_bookings DESC";
     $bookings = $pdo->query($sql)->fetchAll();
+    $total_rows = count($bookings);
 }
+$total_pages = max(1, ceil($total_rows / $per_page));
 
 $status_labels = ['pending'=>'Unconfirmed','confirmed'=>'Confirmed','assigned'=>'Assigned','in_progress'=>'In Progress','completed'=>'Completed','cancelled'=>'Cancelled','no_show'=>'No Show'];
 $status_colors = ['pending'=>'warning','confirmed'=>'primary','assigned'=>'primary','in_progress'=>'primary','completed'=>'success','cancelled'=>'danger','no_show'=>'secondary'];
@@ -858,6 +873,48 @@ document.addEventListener('DOMContentLoaded', function() {
       </table>
     </div>
   </div>
+  <!-- Pagination -->
+  <?php if ($total_pages > 1): ?>
+  <div class="card-footer bg-white border-top py-3 d-flex flex-wrap justify-content-between align-items-center">
+    <div class="text-muted small">
+      Showing <strong><?= min($offset + 1, $total_rows) ?></strong> to <strong><?= min($offset + count($bookings), $total_rows) ?></strong> of <strong><?= number_format($total_rows) ?></strong> bookings
+    </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination pagination-sm mb-0">
+        <?php if ($page > 1): ?>
+          <li class="page-item"><a class="page-link" href="?tab=<?= $tab ?>&page=<?= $page - 1 ?><?= $search ? '&search='.urlencode($search) : '' ?>">&laquo; Previous</a></li>
+        <?php else: ?>
+          <li class="page-item disabled"><span class="page-link">&laquo; Previous</span></li>
+        <?php endif; ?>
+
+        <?php
+        $start_p = max(1, $page - 2);
+        $end_p = min($total_pages, $page + 2);
+        if ($start_p > 1): ?>
+          <li class="page-item"><a class="page-link" href="?tab=<?= $tab ?>&page=1<?= $search ? '&search='.urlencode($search) : '' ?>">1</a></li>
+          <?php if ($start_p > 2): ?><li class="page-item disabled"><span class="page-link">…</span></li><?php endif; ?>
+        <?php endif; ?>
+
+        <?php for ($p = $start_p; $p <= $end_p; $p++): ?>
+          <li class="page-item <?= $p === $page ? 'active' : '' ?>">
+            <a class="page-link" href="?tab=<?= $tab ?>&page=<?= $p ?><?= $search ? '&search='.urlencode($search) : '' ?>"><?= $p ?></a>
+          </li>
+        <?php endfor; ?>
+
+        <?php if ($end_p < $total_pages): ?>
+          <?php if ($end_p < $total_pages - 1): ?><li class="page-item disabled"><span class="page-link">…</span></li><?php endif; ?>
+          <li class="page-item"><a class="page-link" href="?tab=<?= $tab ?>&page=<?= $total_pages ?><?= $search ? '&search='.urlencode($search) : '' ?>"><?= $total_pages ?></a></li>
+        <?php endif; ?>
+
+        <?php if ($page < $total_pages): ?>
+          <li class="page-item"><a class="page-link" href="?tab=<?= $tab ?>&page=<?= $page + 1 ?><?= $search ? '&search='.urlencode($search) : '' ?>">Next &raquo;</a></li>
+        <?php else: ?>
+          <li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>
+        <?php endif; ?>
+      </ul>
+    </nav>
+  </div>
+  <?php endif; ?>
 </div>
 <?php endif; ?>
 <?php endif; ?>
