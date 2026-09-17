@@ -1,7 +1,7 @@
 <?php
 // ── AJAX: Bulk import ──────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'import_bookings') {
-    require_once '../includes/config.php';
+    require_once __DIR__ . '/../includes/config.php';
     require_admin();
     $pdo = db_connect();
     header('Content-Type: application/json');
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 ?>
 <?php
-require_once '../includes/config.php';
+require_once __DIR__ . '/../includes/config.php';
 require_admin();
 $pdo = db_connect();
 
@@ -120,31 +120,36 @@ if ($search) {
 }
 
 // ── Fetch bookings for current tab ────────────────────────────────────────
-function fetch_bookings($pdo, $where, $params, $order='b.pickup_datetime ASC') {
+$page = max(1, intval($_GET['page'] ?? 1));
+$per_page = 25;
+$offset = ($page - 1) * $per_page;
+
+function fetch_bookings($pdo, $where, $params, $order='b.pickup_datetime ASC', $limit=25, $offset=0) {
     $sql = "SELECT b.*, COALESCE(u.name,'—') as driver_name, u.phone as driver_phone, u.email as driver_email
             FROM td_bookings b
             LEFT JOIN td_drivers d ON b.driver_id=d.id
             LEFT JOIN td_users u ON d.user_id=u.id
             WHERE $where
-            ORDER BY $order";
+            ORDER BY $order
+            LIMIT $limit OFFSET $offset";
     $st = $pdo->prepare($sql); $st->execute($params); return $st->fetchAll();
 }
 
 $bookings = [];
 if ($tab === 'next24') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.pickup_datetime BETWEEN NOW() AND DATE_ADD(NOW(),INTERVAL 24 HOUR)$extra_where", $extra_params, 'b.pickup_datetime ASC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.pickup_datetime BETWEEN NOW() AND DATE_ADD(NOW(),INTERVAL 24 HOUR)$extra_where", $extra_params, 'b.pickup_datetime ASC', $per_page, $offset);
 } elseif ($tab === 'latest') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'unconfirmed') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='pending'$extra_where", $extra_params, 'b.created_at DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='pending'$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'completed') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='completed'$extra_where", $extra_params, 'b.pickup_datetime DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='completed'$extra_where", $extra_params, 'b.pickup_datetime DESC', $per_page, $offset);
 } elseif ($tab === 'cancelled') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='cancelled'$extra_where", $extra_params, 'b.pickup_datetime DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0 AND b.status='cancelled'$extra_where", $extra_params, 'b.pickup_datetime DESC', $per_page, $offset);
 } elseif ($tab === 'all') {
-    $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=0$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'trash') {
-    $bookings = fetch_bookings($pdo, "b.trashed=1$extra_where", $extra_params, 'b.created_at DESC');
+    $bookings = fetch_bookings($pdo, "b.trashed=1$extra_where", $extra_params, 'b.created_at DESC', $per_page, $offset);
 } elseif ($tab === 'passengers') {
     $sql = "SELECT customer_name, customer_email, customer_phone,
                    COUNT(*) as total_bookings,
@@ -775,9 +780,36 @@ document.addEventListener('DOMContentLoaded',function(){
 
   
 
-  <div class="card-footer bg-white text-muted small d-flex justify-content-between">
-    <span>Showing <strong><?=count($bookings)?></strong> booking<?=count($bookings)!=1?'s':''?></span>
-    <?php if($search): ?><span>Filtered by: "<strong><?=htmlspecialchars($search)?></strong>"</span><?php endif; ?>
+  <?php 
+$total_records = $counts[$tab] ?? count($bookings);
+$total_pages = max(1, ceil($total_records / $per_page));
+?>
+<div class="card-footer bg-white text-muted small d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <span>Showing <strong><?=count($bookings)?></strong> of <strong><?=number_format($total_records)?></strong> bookings (Page <?=$page?> of <?=$total_pages?>)</span>
+      <?php if($search): ?><span class="ms-2">Filtered by: "<strong><?=htmlspecialchars($search)?></strong>"</span><?php endif; ?>
+    </div>
+    <?php if ($total_pages > 1): ?>
+    <nav aria-label="Bookings pagination">
+      <ul class="pagination pagination-sm mb-0">
+        <li class="page-item <?=($page <= 1) ? 'disabled' : ''?>">
+          <a class="page-link" href="?tab=<?=htmlspecialchars($tab)?>&search=<?=urlencode($search)?>&page=<?=$page-1?>">‹ Prev</a>
+        </li>
+        <?php
+        $start_p = max(1, $page - 2);
+        $end_p = min($total_pages, $page + 2);
+        for ($p = $start_p; $p <= $end_p; $p++):
+        ?>
+        <li class="page-item <?=($p === $page) ? 'active' : ''?>">
+          <a class="page-link" href="?tab=<?=htmlspecialchars($tab)?>&search=<?=urlencode($search)?>&page=<?=$p?>"><?=$p?></a>
+        </li>
+        <?php endfor; ?>
+        <li class="page-item <?=($page >= $total_pages) ? 'disabled' : ''?>">
+          <a class="page-link" href="?tab=<?=htmlspecialchars($tab)?>&search=<?=urlencode($search)?>&page=<?=$page+1?>">Next ›</a>
+        </li>
+      </ul>
+    </nav>
+    <?php endif; ?>
   </div>
 </div>
 <?php endif; ?>
