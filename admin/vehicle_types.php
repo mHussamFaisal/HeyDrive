@@ -479,8 +479,13 @@ function openVehicleModal() {
   document.getElementById('img_type_gallery').checked = true;
   toggleImageType(0);
   document.getElementById('vt_published').checked = true;
-  var modal = new bootstrap.Modal(document.getElementById('vehicleModal'));
-  modal.show();
+  var el = document.getElementById('vehicleModal');
+  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    var modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+    modal.show();
+  } else if (typeof $ !== 'undefined') {
+    $(el).modal('show');
+  }
 }
 
 function editVehicleModal(data) {
@@ -511,7 +516,14 @@ function editVehicleModal(data) {
   document.getElementById('img_type_gallery').checked = true;
   toggleImageType(0);
 
-  var modal = new bootstrap.Modal(document.getElementById('vehicleModal'));
-  modal.show();
+  var el = document.getElementById('vehicleModal');
+  if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+    var modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+    modal.show();
+  } else if (typeof $ !== 'undefined') {
+    $(el).modal('show');
+  }
 }
 </script>
+
+<?php require_once 'footer.php'; ?>
