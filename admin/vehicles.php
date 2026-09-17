@@ -1,203 +1,221 @@
 <?php
-// All POST/GET logic runs BEFORE any HTML output — fixes blank page on redirect
-require_once __DIR__ . '/../includes/config.php';
+require_once '../includes/config.php';
+
+if (!is_logged_in() || !is_admin()) {
+    redirect('../login.php');
+}
+
 $pdo = db_connect();
-$err = '';
-
-// Fetch all available drivers for the driver dropdown if needed
-$drivers_list = [];
-try {
-    $drivers_list = $pdo->query("SELECT d.id as driver_id, u.name, u.email 
-        FROM td_drivers d 
-        JOIN td_users u ON d.user_id = u.id 
-        ORDER BY u.name")->fetchAll();
-} catch (Exception $e) {}
-
-// ── POST: Update Status / Delete All ─────────────────────────────────────────
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-
-    if ($action === 'update_status') {
-        $pdo->prepare("UPDATE td_vehicles SET status=? WHERE id=?")
-            ->execute([trim($_POST['status']), intval($_POST['vid'])]);
-        header("Location: " . APP_URL . "/admin/vehicles.php?msg=updated");
-        exit;
-    } elseif ($action === 'delete_all_vehicles') {
-        $pdo->exec("DELETE FROM td_vehicles");
-        header("Location: " . APP_URL . "/admin/vehicles.php?msg=all_deleted");
-        exit;
-    }
-}
-
-// ── GET: Delete single vehicle ───────────────────────────────────────────────
-if (isset($_GET['delete'])) {
-    $vid = intval($_GET['delete']);
-    $row = $pdo->prepare("SELECT image FROM td_vehicles WHERE id=?");
-    $row->execute([$vid]);
-    $vdata = $row->fetch();
-    if ($vdata && $vdata['image'] && file_exists(dirname(__DIR__) . '/' . $vdata['image'])) {
-        unlink(dirname(__DIR__) . '/' . $vdata['image']);
-    }
-    $pdo->prepare("DELETE FROM td_vehicles WHERE id=?")->execute([$vid]);
-    header("Location: " . APP_URL . "/admin/vehicles.php?msg=deleted");
-    exit;
-}
-
-// ── Safe to output HTML ──────────────────────────────────────────────────────
-$page_title = 'Vehicles';
-require_once 'header.php';
-
-$vehicles = $pdo->query("SELECT v.*, u.name as driver_name
-    FROM td_vehicles v
-    LEFT JOIN td_drivers d ON v.assigned_driver_id = d.id OR v.id = d.vehicle_id
-    LEFT JOIN td_users u ON d.user_id = u.id
-    GROUP BY v.id
-    ORDER BY v.id DESC")->fetchAll();
 
 $msg = $_GET['msg'] ?? '';
+$err = $_GET['err'] ?? '';
+
+// Handle POST: Add / Edit Vehicle
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+    $action = $_POST['action'] ?? '';
+    if ($action === 'save_vehicle') {
+        $vid = intval($_POST['vehicle_id'] ?? 0);
+        $name = trim($_POST['name'] ?? '');
+        $license_plate = trim($_POST['license_plate'] ?? '') ?: $name;
+        $type = trim($_POST['type'] ?? '');
+        $assigned_drivers = trim($_POST['assigned_drivers'] ?? '');
+        $make = trim($_POST['make'] ?? '');
+        $model = trim($_POST['model'] ?? '');
+        $color = trim($_POST['color'] ?? '');
+        $body_type = trim($_POST['body_type'] ?? '');
+        $capacity = !empty($_POST['capacity']) ? intval($_POST['capacity']) : null;
+        $status = trim($_POST['status'] ?? 'Activated');
+        $registration_mark = trim($_POST['registration_mark'] ?? '');
+        $technical_inspection = trim($_POST['technical_inspection'] ?? '');
+
+        if (!$name) {
+            $err = "Vehicle name is required.";
+        } else {
+            if ($vid > 0) {
+                $stmt = $pdo->prepare("UPDATE td_vehicles SET 
+                    name = ?, license_plate = ?, type = ?, assigned_drivers = ?, 
+                    make = ?, model = ?, color = ?, body_type = ?, capacity = ?, 
+                    status = ?, registration_mark = ?, technical_inspection = ?, 
+                    updated_at = NOW() 
+                    WHERE id = ?");
+                $stmt->execute([
+                    $name, $license_plate, $type, $assigned_drivers,
+                    $make, $model, $color, $body_type, $capacity,
+                    $status, $registration_mark, $technical_inspection,
+                    $vid
+                ]);
+                header("Location: vehicles.php?msg=updated");
+                exit;
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO td_vehicles 
+                    (name, license_plate, type, assigned_drivers, make, model, color, body_type, capacity, status, registration_mark, technical_inspection, created_at, updated_at) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                $stmt->execute([
+                    $name, $license_plate, $type, $assigned_drivers,
+                    $make, $model, $color, $body_type, $capacity,
+                    $status, $registration_mark, $technical_inspection
+                ]);
+                header("Location: vehicles.php?msg=added");
+                exit;
+            }
+        }
+    }
+}
+
+// Handle GET: Delete
+if (isset($_GET['delete'])) {
+    $vid = intval($_GET['delete']);
+    if ($vid > 0) {
+        $stmt = $pdo->prepare("DELETE FROM td_vehicles WHERE id = ?");
+        $stmt->execute([$vid]);
+        header("Location: vehicles.php?msg=deleted");
+        exit;
+    }
+}
+
+// Fetch all vehicles
+$vehicles = $pdo->query("SELECT * FROM td_vehicles ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch all drivers for assigned drivers dropdown/helper
+$drivers = [];
+try {
+    $drivers = $pdo->query("SELECT u.name FROM td_drivers d JOIN td_users u ON d.user_id = u.id ORDER BY u.name")->fetchAll(PDO::FETCH_COLUMN);
+} catch (Exception $e) {}
+
+$page_title = 'Settings > Vehicles';
+require_once 'header.php';
 ?>
 
+<!-- Breadcrumb matching sample -->
 <nav aria-label="breadcrumb" class="mb-4">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="settings.php">Settings</a></li>
-    <li class="breadcrumb-item active">Vehicles List</li>
+  <ol class="breadcrumb" style="font-size:16px;">
+    <li class="breadcrumb-item"><a href="settings.php" class="text-decoration-none text-muted">Settings</a></li>
+    <li class="breadcrumb-item active text-dark fw-normal" aria-current="page">Vehicles</li>
   </ol>
 </nav>
 
 <?php if ($msg): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
-  <?= $msg==='deleted' ? '🗑️ Vehicle removed.' : ($msg==='all_deleted' ? '🗑️ All vehicles removed.' : '✅ Updated.') ?>
+  <?= $msg==='added' ? 'Vehicle created successfully.' : ($msg==='updated' ? 'Vehicle updated successfully.' : 'Vehicle deleted successfully.') ?>
   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 <?php endif; ?>
-<?php if ($err): ?><div class="alert alert-danger mb-4">❌ <?= $err ?></div><?php endif; ?>
 
-<!-- Top Action Header -->
+<?php if ($err): ?>
+<div class="alert alert-danger alert-dismissible fade show mb-4">
+  <?= htmlspecialchars($err) ?>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<?php endif; ?>
+
+<!-- Top Actions Toolbar matching sample -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <div>
-    <h4 class="fw-bold mb-0"><i class="fas fa-car me-2 text-warning"></i>Vehicles List</h4>
-    <div class="text-muted small mt-1">Manage active fleet &amp; driver assignments</div>
-  </div>
-  <div class="d-flex gap-2">
-    <a href="vehicle_types.php" class="btn btn-warning btn-lg px-3 shadow-sm d-flex align-items-center gap-2 fw-semibold" style="border-radius:.6rem;">
-      <i class="fas fa-cog"></i> Manage Types of Vehicles
-    </a>
-    <!-- Delete All Vehicles Button -->
-    <button type="button" class="btn btn-outline-danger btn-lg px-3 shadow-sm d-flex align-items-center gap-2 fw-semibold" data-bs-toggle="modal" data-bs-target="#deleteAllVehiclesModal" style="border-radius:.6rem;">
-      <i class="fas fa-trash-alt"></i> Delete All
+  <div class="d-flex align-items-center gap-2">
+    <div class="btn-group border rounded bg-white shadow-sm">
+      <button type="button" class="btn btn-light btn-sm text-muted px-2" title="View mode"><i class="fas fa-eye"></i></button>
+      <button type="button" class="btn btn-light btn-sm text-muted px-2" onclick="location.reload();" title="Reset"><i class="fas fa-undo"></i></button>
+      <button type="button" class="btn btn-light btn-sm text-muted px-2" onclick="location.reload();" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+      <button type="button" class="btn btn-light btn-sm text-muted px-2" title="Search"><i class="fas fa-search"></i></button>
+    </div>
+
+    <button type="button" class="btn btn-success btn-sm px-3 fw-semibold shadow-sm d-flex align-items-center gap-1" onclick="openVehicleModal()" style="background:#28a745;border-color:#28a745;height:31px;">
+      <i class="fas fa-plus"></i> Add new
     </button>
   </div>
-</div>
 
-<!-- Delete All Vehicles Modal -->
-<div class="modal fade" id="deleteAllVehiclesModal" tabindex="-1" aria-labelledby="deleteAllVehiclesModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 shadow">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title fw-bold" id="deleteAllVehiclesModalLabel">
-          <i class="fas fa-exclamation-triangle me-2"></i>Delete All Vehicles?
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body p-4">
-        <p class="mb-3">Are you sure you want to <strong>permanently delete ALL vehicles</strong> from the fleet list?</p>
-        <div class="alert alert-warning small mb-0">
-          <i class="fas fa-info-circle me-1"></i> <strong>Warning:</strong> This action cannot be undone.
-        </div>
-      </div>
-      <div class="modal-footer bg-light">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="POST" style="display:inline;">
-          <input type="hidden" name="action" value="delete_all_vehicles">
-          <button type="submit" class="btn btn-danger fw-bold">
-            <i class="fas fa-trash-alt me-1"></i> Yes, Delete ALL Vehicles
-          </button>
-        </form>
-      </div>
+  <div class="d-flex align-items-center gap-2">
+    <div class="input-group input-group-sm" style="width: 240px;">
+      <input type="text" id="vehicleSearch" class="form-control" placeholder="Search..." onkeyup="filterVehiclesTable()">
+      <span class="input-group-text bg-white text-muted"><i class="fas fa-search"></i></span>
     </div>
+    <span class="text-muted" title="Help / Information" style="cursor:pointer;"><i class="far fa-question-circle"></i></span>
   </div>
 </div>
 
-<!-- Vehicles Fleet Table Card with Horizontal Scroll -->
-<div class="card border-0 shadow-sm rounded-3">
-  <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center py-3">
-    <span class="fs-5">🚗 Vehicles List (<?= count($vehicles) ?>)</span>
-  </div>
+<!-- Vehicles Table Card with Horizontal Scroll -->
+<div class="card border-0 shadow-sm rounded-0">
   <div class="card-body p-0">
     <div class="table-responsive" style="overflow-x: auto;">
-      <table class="table table-hover mb-0 align-middle" style="min-width: 1000px; white-space: nowrap;">
-        <thead class="table-dark">
-          <tr>
-            <th>Photo</th>
-            <th>Name / Vehicle</th>
-            <th>Reg Mark</th>
-            <th>Type</th>
-            <th>Cap.</th>
-            <th>Inspection / Expiry</th>
-            <th>Keeper</th>
-            <th>Assigned Driver</th>
-            <th>Status</th>
-            <th class="text-end pe-3">Actions</th>
+      <table class="table table-hover align-middle mb-0" id="vehiclesTable" style="min-width: 950px; white-space: nowrap; font-size:14px;">
+        <thead style="background:#fdfdfd; border-bottom:1px solid #dee2e6;">
+          <tr class="text-muted" style="font-size:13px; font-weight:600;">
+            <th style="width: 45px;" class="ps-3"></th>
+            <th style="width: 70px;">Photo</th>
+            <th>Name</th>
+            <th>Assign driver</th>
+            <th>Vehicle type</th>
+            <th>Registration mark</th>
+            <th>Technical inspection</th>
+            <th class="pe-3">Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="vehiclesTableBody">
           <?php foreach ($vehicles as $v): ?>
-          <tr>
-            <td style="width:70px">
-              <?php if (!empty($v['image'])): ?>
-                <img src="<?= APP_URL . '/' . htmlspecialchars($v['image']) ?>"
-                     alt="Vehicle" style="width:60px;height:45px;object-fit:cover;border-radius:6px;border:1px solid #ddd">
-              <?php else: ?>
-                <div style="width:60px;height:45px;background:#f0f0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:22px;">🚗</div>
-              <?php endif; ?>
+          <tr style="border-bottom: 1px solid #f2f2f2;">
+            <!-- Actions dropdown with eye icon -->
+            <td class="ps-3">
+              <div class="dropdown">
+                <button class="btn btn-sm btn-light border dropdown-toggle py-0 px-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#6c757d; font-size:12px;">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <ul class="dropdown-menu shadow-sm border-0">
+                  <li><a class="dropdown-item" href="vehicle_view.php?id=<?= $v['id'] ?>"><i class="fas fa-eye text-primary me-2"></i>View</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0)" onclick='editVehicleModal(<?= json_encode($v) ?>)'><i class="fas fa-edit text-info me-2"></i>Edit</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="vehicles.php?delete=<?= $v['id'] ?>" onclick="return confirm('Delete vehicle <?= htmlspecialchars($v['name']) ?>?')"><i class="fas fa-trash me-2"></i>Delete</a></li>
+                </ul>
+              </div>
             </td>
+
+            <!-- Photo Circle Icon -->
             <td>
-              <strong><?= htmlspecialchars($v['name'] ?: ($v['color'] . ' ' . $v['make'] . ' ' . $v['model'])) ?></strong><br>
-              <small class="text-muted"><?= htmlspecialchars($v['make'] . ' ' . $v['model']) ?></small>
+              <div style="width:38px;height:38px;background:#e9ecef;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#adb5bd;font-size:16px;">
+                <i class="fas fa-car"></i>
+              </div>
             </td>
-            <td><span class="badge bg-dark fs-6"><?= htmlspecialchars($v['registration_mark'] ?: $v['license_plate']) ?></span></td>
-            <td><span class="badge bg-secondary"><?= ucfirst($v['type']) ?></span></td>
-            <td><?= $v['capacity'] ?> pax</td>
+
+            <!-- Name (Clickable link to view) -->
             <td>
-              <small>
-                <?= $v['technical_inspection'] ? htmlspecialchars($v['technical_inspection']) : '-' ?><br>
-                <span class="text-muted">Exp: <?= $v['inspection_expiry_date'] ? date('d.m.Y', strtotime($v['inspection_expiry_date'])) : '-' ?></span>
-              </small>
-            </td>
-            <td><small><?= $v['keeper_name'] ? htmlspecialchars($v['keeper_name']) : '-' ?></small></td>
-            <td>
-              <?php if (!empty($v['assigned_driver_ids'])): ?>
-                <small class="text-dark fw-semibold"><?= htmlspecialchars($v['assigned_driver_ids']) ?></small>
-              <?php elseif (!empty($v['driver_name'])): ?>
-                <small class="text-dark fw-semibold"><?= htmlspecialchars($v['driver_name']) ?></small>
-              <?php else: ?>
-                <small class="text-muted">Unassigned</small>
-              <?php endif; ?>
-            </td>
-            <td>
-              <form method="POST" class="d-inline">
-                <input type="hidden" name="action" value="update_status">
-                <input type="hidden" name="vid" value="<?= $v['id'] ?>">
-                <select name="status" class="form-select form-select-sm" style="width:130px" onchange="this.form.submit()">
-                  <option value="active" <?= ($v['status']==='active'||$v['status']==='activated') ? 'selected' : '' ?>>Activated</option>
-                  <option value="inactive" <?= ($v['status']==='inactive'||$v['status']==='deactivated') ? 'selected' : '' ?>>Deactivated</option>
-                  <option value="maintenance" <?= $v['status']==='maintenance' ? 'selected' : '' ?>>Maintenance</option>
-                </select>
-              </form>
-            </td>
-            <td class="text-end pe-3">
-              <a href="vehicles.php?delete=<?= $v['id'] ?>" class="btn btn-sm btn-outline-danger"
-                 onclick="return confirm('Permanently remove this vehicle?')">
-                <i class="fas fa-trash-alt"></i> Delete
+              <a href="vehicle_view.php?id=<?= $v['id'] ?>" class="text-decoration-none fw-semibold" style="color:#337ab7;">
+                <?= htmlspecialchars($v['name']) ?>
               </a>
+            </td>
+
+            <!-- Assign driver -->
+            <td class="text-dark" style="max-width: 320px; overflow: hidden; text-overflow: ellipsis;">
+              <?= htmlspecialchars($v['assigned_drivers'] ?: '-') ?>
+            </td>
+
+            <!-- Vehicle type -->
+            <td class="text-muted">
+              <?= htmlspecialchars($v['type'] ?: '') ?>
+            </td>
+
+            <!-- Registration mark -->
+            <td class="text-muted">
+              <?= htmlspecialchars($v['registration_mark'] ?: '') ?>
+            </td>
+
+            <!-- Technical inspection -->
+            <td class="text-muted">
+              <?= htmlspecialchars($v['technical_inspection'] ?: '') ?>
+            </td>
+
+            <!-- Status Badge -->
+            <td class="pe-3">
+              <?php if (strtolower($v['status']) === 'activated' || strtolower($v['status']) === 'active'): ?>
+                <span class="badge bg-success px-2 py-1" style="font-weight:500;font-size:11px;">Activated</span>
+              <?php else: ?>
+                <span class="badge bg-secondary px-2 py-1" style="font-weight:500;font-size:11px;"><?= htmlspecialchars($v['status']) ?></span>
+              <?php endif; ?>
             </td>
           </tr>
           <?php endforeach; ?>
+
           <?php if (empty($vehicles)): ?>
           <tr>
-            <td colspan="10" class="text-center text-muted py-5">
-              <i class="fas fa-car fa-2x mb-2 text-secondary"></i><br>
-              No vehicles found in fleet list.
+            <td colspan="8" class="text-center text-muted py-5">
+              No vehicles found. Click "+ Add new" to create one.
             </td>
           </tr>
           <?php endif; ?>
@@ -206,5 +224,133 @@ $msg = $_GET['msg'] ?? '';
     </div>
   </div>
 </div>
+
+<!-- ── Add / Edit Vehicle Modal Dialog ── -->
+<div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow-lg">
+      <form method="POST" id="vehicleForm">
+        <input type="hidden" name="action" value="save_vehicle">
+        <input type="hidden" name="vehicle_id" id="v_id" value="0">
+
+        <div class="modal-header border-bottom py-3">
+          <h5 class="modal-title fw-bold" id="vehicleModalLabel"><i class="fas fa-car text-success me-2"></i>Add Vehicle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-semibold">Vehicle Name / Plate <span class="text-danger">*</span></label>
+              <input type="text" name="name" id="v_name" class="form-control" placeholder="e.g. M-QM 510" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label text-muted small fw-semibold">Vehicle Type</label>
+              <select name="type" id="v_type" class="form-select">
+                <option value="">-- Select Type --</option>
+                <option value="First Class">First Class</option>
+                <option value="First Class XL">First Class XL</option>
+                <option value="Business Class">Business Class</option>
+                <option value="Business Class XL">Business Class XL</option>
+                <option value="Business Class XXL">Business Class XXL</option>
+                <option value="Economy Class">Economy Class</option>
+                <option value="Economy Premium Class">Economy Premium Class</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label text-muted small fw-semibold">Assigned Drivers (comma separated)</label>
+              <input type="text" name="assigned_drivers" id="v_assigned_drivers" class="form-control" placeholder="Alex, Belhassen, Zaidan, Colhon, Rached, Seleiman, Catalin, Ionut">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Make</label>
+              <input type="text" name="make" id="v_make" class="form-control" placeholder="e.g. Mercedes">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Model</label>
+              <input type="text" name="model" id="v_model" class="form-control" placeholder="e.g. Mercedes or E-Class">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Colour</label>
+              <input type="text" name="color" id="v_color" class="form-control" placeholder="e.g. Black">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Body Type</label>
+              <input type="text" name="body_type" id="v_body_type" class="form-control" placeholder="e.g. Limousine">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Passenger Capacity</label>
+              <input type="number" name="capacity" id="v_capacity" class="form-control" placeholder="e.g. 3 or 7">
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label text-muted small fw-semibold">Status</label>
+              <select name="status" id="v_status" class="form-select">
+                <option value="Activated" selected>Activated</option>
+                <option value="Deactivated">Deactivated</option>
+                <option value="Maintenance">Maintenance</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top bg-light">
+          <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary px-5 fw-bold" id="v_submit_btn">Save Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function openVehicleModal() {
+  document.getElementById('vehicleForm').reset();
+  document.getElementById('v_id').value = '0';
+  document.getElementById('vehicleModalLabel').innerHTML = '<i class="fas fa-car text-success me-2"></i>Add Vehicle';
+  document.getElementById('v_submit_btn').innerText = 'Save Vehicle';
+
+  var el = document.getElementById('vehicleModal');
+  var modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+  modal.show();
+}
+
+function editVehicleModal(data) {
+  document.getElementById('vehicleForm').reset();
+  document.getElementById('v_id').value = data.id || 0;
+  document.getElementById('v_name').value = data.name || '';
+  document.getElementById('v_type').value = data.type || '';
+  document.getElementById('v_assigned_drivers').value = data.assigned_drivers || '';
+  document.getElementById('v_make').value = data.make || '';
+  document.getElementById('v_model').value = data.model || '';
+  document.getElementById('v_color').value = data.color || '';
+  document.getElementById('v_body_type').value = data.body_type || '';
+  document.getElementById('v_capacity').value = data.capacity || '';
+  document.getElementById('v_status').value = data.status || 'Activated';
+
+  document.getElementById('vehicleModalLabel').innerHTML = '<i class="fas fa-edit text-primary me-2"></i>Edit Vehicle: ' + (data.name || '');
+  document.getElementById('v_submit_btn').innerText = 'Save Changes';
+
+  var el = document.getElementById('vehicleModal');
+  var modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+  modal.show();
+}
+
+function filterVehiclesTable() {
+  var input = document.getElementById('vehicleSearch');
+  var filter = input.value.toLowerCase();
+  var rows = document.getElementById('vehiclesTableBody').getElementsByTagName('tr');
+  for (var i = 0; i < rows.length; i++) {
+    var text = rows[i].textContent || rows[i].innerText;
+    rows[i].style.display = (text.toLowerCase().indexOf(filter) > -1) ? '' : 'none';
+  }
+}
+</script>
 
 <?php require_once 'footer.php'; ?>

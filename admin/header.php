@@ -45,7 +45,8 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   $settings_pages = [
       'settings.php','settings_general.php','settings_booking.php',
       'settings_google.php','settings_localization.php','settings_email.php',
-      'settings_roles.php','settings_widget.php','payments.php'
+      'settings_roles.php','settings_widget.php','payments.php',
+      'vehicle_types.php','vehicles.php','vehicle_view.php','vehicle_edit.php'
   ];
   $on_settings = in_array($cur, $settings_pages);
   $on_users    = in_array($cur, ['users.php', 'drivers.php', 'driver_edit.php', 'driver_view.php']);
@@ -126,10 +127,6 @@ html, body { overflow-x: hidden; max-width: 100vw; }
       </nav>
     </div>
 
-    <a href="vehicles.php" class="nav-link <?= $cur==='vehicles.php'?'active':'' ?>">
-      <i class="fas fa-car"></i> Vehicles
-    </a>
-
     <!-- Pricing collapsible -->
     <a href="pricing.php"
        class="nav-link d-flex justify-content-between align-items-center <?= $on_pricing?'active':'' ?>"
@@ -197,6 +194,9 @@ html, body { overflow-x: hidden; max-width: 100vw; }
         </a>
         <a href="vehicle_types.php"          class="nav-link <?= $cur==='vehicle_types.php'?'active':'' ?>">
           <i class="fas fa-car"></i> Types of Vehicles
+        </a>
+        <a href="vehicles.php"              class="nav-link <?= in_array($cur, ['vehicles.php','vehicle_view.php','vehicle_edit.php'])?'active':'' ?>">
+          <i class="fas fa-car-side"></i> Vehicles
         </a>
         <a href="settings_widget.php"       class="nav-link <?= $cur==='settings_widget.php'?'active':'' ?>">
           <i class="fas fa-code"></i> Web Widget &amp; Integration
