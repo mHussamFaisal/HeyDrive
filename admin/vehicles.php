@@ -2,6 +2,20 @@
 // All POST/GET logic runs BEFORE any HTML output — fixes blank page on redirect
 require_once __DIR__ . '/../includes/config.php';
 $pdo = db_connect();
+
+// Auto-migrate missing columns for td_vehicles to prevent SQL errors
+try {
+    $pdo->exec("ALTER TABLE `td_vehicles` 
+        ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `assigned_driver_id` int(11) DEFAULT NULL,
+        ADD COLUMN IF NOT EXISTS `registration_mark` varchar(100) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `technical_inspection` varchar(100) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `inspection_expiry_date` date DEFAULT NULL,
+        ADD COLUMN IF NOT EXISTS `body_type` varchar(50) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `keeper_name` varchar(100) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `keeper_address` varchar(255) DEFAULT '',
+        ADD COLUMN IF NOT EXISTS `image` varchar(255) DEFAULT ''");
+} catch (Exception $e) {}
 $err = '';
 
 // Fetch all available drivers for the driver dropdown
