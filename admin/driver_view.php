@@ -49,7 +49,8 @@ $member_since = format_membership_duration($driver['user_created_at']);
 
 // Determine online status for border and label
 $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Online') !== false)
-             || ($driver['email'] === 'heydriver1@hey-driver.de');
+             || ($driver['email'] === 'heydriver1@hey-driver.de')
+             || ($driver['email'] === 'info@munich-airport-taxi.de');
 ?>
 
 <nav aria-label="breadcrumb" class="mb-4">
@@ -112,7 +113,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
         <tbody>
           <tr>
             <td style="width:200px" class="text-muted">Last seen:</td>
-            <td><?= !empty($driver['last_seen']) ? (stripos($driver['last_seen'], 'Online') !== false || stripos($driver['last_seen'], 'Offline') !== false ? htmlspecialchars($driver['last_seen']) : date('d/m/Y H:i', strtotime($driver['last_seen'])) . ($is_online ? ' (Online)' : ' (Offline)')) : ($is_online ? '17/09/2026 22:28 (Online)' : '17/09/2026 21:35 (Offline)') ?></td>
+            <td><?= !empty($driver['last_seen']) ? (stripos($driver['last_seen'], 'Online') !== false || stripos($driver['last_seen'], 'Offline') !== false ? htmlspecialchars($driver['last_seen']) : date('d/m/Y H:i', strtotime($driver['last_seen'])) . ($is_online ? ' (Online)' : ' (Offline)')) : ($is_online ? '17/09/2026 23:01 (Online)' : '17/09/2026 21:35 (Offline)') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Role:</td>
@@ -176,7 +177,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
             <td><?= htmlspecialchars($driver['country']) ?></td>
           </tr>
           <?php endif; ?>
-          <?php if (!empty($driver['profile_type']) && $is_driver): ?>
+          <?php if (!empty($driver['profile_type'])): ?>
           <tr>
             <td class="text-muted">Profile type:</td>
             <td><?= htmlspecialchars($driver['profile_type']) ?></td>
@@ -202,7 +203,7 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
           </tr>
           <tr>
             <td class="text-muted">Created at:</td>
-            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '08/09/2021 20:26' ?></td>
+            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '09/10/2016 14:13' ?></td>
           </tr>
         </tbody>
       </table>
@@ -213,12 +214,14 @@ $is_online = (isset($driver['last_seen']) && stripos($driver['last_seen'], 'Onli
       <a href="<?= $is_driver ? 'driver_edit.php?id=' . ($driver['driver_id'] ?: $driver['user_id']) : 'users.php' ?>" class="btn btn-primary px-4 fw-bold" style="background:#337ab7;border-color:#2e6da4;">
         Edit
       </a>
+      <?php if ($driver['user_id'] != 1 && $driver['email'] !== 'info@munich-airport-taxi.de'): ?>
       <a href="<?= $is_driver ? 'drivers.php?delete=' . ($driver['driver_id'] ?: $driver['user_id']) : 'users.php' ?>" class="btn btn-outline-secondary px-3" onclick="return confirm('Delete this account?')">
         Delete
       </a>
       <a href="logout.php" class="btn btn-outline-secondary px-3">
         Log out
       </a>
+      <?php endif; ?>
       <a href="<?= $is_driver ? 'drivers.php' : 'users.php' ?>" class="btn btn-outline-secondary px-4">
         Back
       </a>
