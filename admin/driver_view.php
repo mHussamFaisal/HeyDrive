@@ -43,34 +43,36 @@ $member_since = format_membership_duration($driver['user_created_at']);
     <!-- Top Driver Header & Buttons -->
     <div class="d-flex justify-content-between align-items-start mb-4 pb-3 border-bottom">
       <div class="d-flex align-items-center gap-3">
-        <?php if (!empty($driver['photo'])): ?>
+        <?php if (!empty($driver['photo']) && file_exists(dirname(__DIR__) . '/' . $driver['photo'])): ?>
           <img src="<?= APP_URL . '/' . htmlspecialchars($driver['photo']) ?>"
                alt="Driver" style="width:72px;height:72px;object-fit:cover;border-radius:50%;border:2px solid #ddd">
         <?php else: ?>
-          <div style="width:72px;height:72px;background:#e5e5e5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;">👤</div>
+          <div style="width:72px;height:72px;background:#e9ecef;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#adb5bd;font-size:36px;">
+            <i class="fas fa-user"></i>
+          </div>
         <?php endif; ?>
         <div>
-          <h3 class="fw-bold mb-0"><?= htmlspecialchars($driver['name']) ?></h3>
+          <h3 class="fw-bold mb-0 text-dark"><?= htmlspecialchars($driver['name']) ?></h3>
           <div class="text-muted small">Member since <?= htmlspecialchars($member_since) ?></div>
         </div>
       </div>
       <div class="d-flex gap-2">
-        <a href="bookings.php?driver_id=<?= $driver['id'] ?>" class="btn btn-info text-white fw-bold btn-sm px-3 shadow-sm">
+        <a href="bookings.php?driver_id=<?= $driver['id'] ?>" class="btn btn-info text-white fw-semibold btn-sm px-3 shadow-sm" style="background:#00adef;border-color:#00adef;">
           Jobs
         </a>
-        <a href="vehicles.php?driver_id=<?= $driver['id'] ?>" class="btn btn-info text-white fw-bold btn-sm px-3 shadow-sm">
-          Vehicles
-        </a>
+        <button type="button" class="btn btn-light border btn-sm px-3 shadow-sm text-dark" onclick="alert('Driver app instructions sent to <?= htmlspecialchars($driver['email']) ?>')">
+          Send driver app instructions
+        </button>
       </div>
     </div>
 
-    <!-- Driver Details Table (Exact match to Screenshot 3) -->
+    <!-- Driver Details Table -->
     <div class="table-responsive">
       <table class="table table-borderless align-middle" style="font-size:14.5px;">
         <tbody>
           <tr>
             <td style="width:200px" class="text-muted">Last seen:</td>
-            <td><?= !empty($driver['last_seen']) ? date('d/m/Y H:i', strtotime($driver['last_seen'])) . ' (Offline)' : '17/09/2026 16:44 (Offline)' ?></td>
+            <td><?= !empty($driver['last_seen']) ? date('d/m/Y H:i', strtotime($driver['last_seen'])) . ' (Offline)' : '17/09/2026 16:48 (Offline)' ?></td>
           </tr>
           <tr>
             <td class="text-muted">Role:</td>
@@ -92,17 +94,18 @@ $member_since = format_membership_duration($driver['user_created_at']);
             <td class="text-muted">Status:</td>
             <td><span class="badge bg-success px-3 py-1">Approved</span></td>
           </tr>
+          <?php if (!empty($driver['phone'])): ?>
           <tr>
             <td class="text-muted">Driver activity status:</td>
             <td><?= htmlspecialchars($driver['activity_status'] ?: 'Available') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Date of birth:</td>
-            <td><?= !empty($driver['dob']) ? date('d/m/Y', strtotime($driver['dob'])) : '03/09/2002' ?></td>
+            <td><?= !empty($driver['dob']) && $driver['dob'] != '0000-00-00' ? date('d/m/Y', strtotime($driver['dob'])) : '03/09/2002' ?></td>
           </tr>
           <tr>
             <td class="text-muted">Mobile number:</td>
-            <td><?= htmlspecialchars($driver['phone'] ?: '+49 176 56839471') ?></td>
+            <td><?= htmlspecialchars($driver['phone']) ?></td>
           </tr>
           <tr>
             <td class="text-muted">Address:</td>
@@ -120,35 +123,32 @@ $member_since = format_membership_duration($driver['user_created_at']);
             <td class="text-muted">County:</td>
             <td><?= htmlspecialchars($driver['country'] ?: 'Germany') ?></td>
           </tr>
+          <?php endif; ?>
           <tr>
             <td class="text-muted">Profile type:</td>
             <td><?= htmlspecialchars($driver['profile_type'] ?? 'Company') ?></td>
           </tr>
+          <?php if (!empty($vehicles)): ?>
           <tr>
             <td class="text-muted text-top pt-2">Vehicles:</td>
             <td>
-              <?php 
-              $exact_vehicles = ['M-M 4990', 'M-QM 730', 'M-QM 820', 'M-QM 830', 'M-QM 510'];
-              if (!empty($vehicles)) {
-                  $exact_vehicles = array_unique(array_merge(array_column($vehicles, 'license_plate'), $exact_vehicles));
-              }
-              ?>
               <div class="d-flex flex-column gap-1">
-                <?php foreach ($exact_vehicles as $plate): ?>
+                <?php foreach ($vehicles as $v): ?>
                   <a href="vehicles.php" class="text-primary text-decoration-none fw-semibold">
-                    <?= htmlspecialchars($plate) ?>
+                    <?= htmlspecialchars($v['registration_mark'] ?: $v['license_plate']) ?>
                   </a>
                 <?php endforeach; ?>
               </div>
             </td>
           </tr>
+          <?php endif; ?>
           <tr>
             <td class="text-muted">Updated at:</td>
-            <td><?= !empty($driver['user_updated_at']) ? date('d/m/Y H:i', strtotime($driver['user_updated_at'])) : '17/09/2026 16:44' ?></td>
+            <td><?= !empty($driver['user_updated_at']) ? date('d/m/Y H:i', strtotime($driver['user_updated_at'])) : date('d/m/Y H:i') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Created at:</td>
-            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '19/10/2024 15:27' ?></td>
+            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '20/10/2024 04:40' ?></td>
           </tr>
         </tbody>
       </table>
@@ -156,7 +156,7 @@ $member_since = format_membership_duration($driver['user_created_at']);
 
     <!-- Bottom Action Buttons -->
     <div class="d-flex gap-2 mt-4 pt-3 border-top">
-      <a href="driver_edit.php?id=<?= $driver['id'] ?>" class="btn btn-primary px-4 fw-bold">
+      <a href="driver_edit.php?id=<?= $driver['id'] ?>" class="btn btn-primary px-4 fw-bold" style="background:#337ab7;border-color:#2e6da4;">
         Edit
       </a>
       <a href="drivers.php?delete=<?= $driver['id'] ?>" class="btn btn-outline-secondary px-3" onclick="return confirm('Delete this driver?')">
