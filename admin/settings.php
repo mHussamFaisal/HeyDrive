@@ -107,6 +107,23 @@ require_once 'header.php';
     </a>
   </div>
 
+  <!-- Types of Vehicles -->
+  <div class="col-md-4">
+    <a href="vehicle_types.php" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 card-hover">
+        <div class="card-body d-flex align-items-start gap-3 p-4">
+          <div class="rounded-3 p-3 bg-warning bg-opacity-10 text-warning fs-4">
+            <i class="fas fa-car"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-1">Types of Vehicles</h6>
+            <p class="text-muted small mb-0">Manage fleet vehicle types, passenger &amp; luggage capacities, display options &amp; pricing factors.</p>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
   <!-- Payment Gateways -->
   <div class="col-md-4">
     <a href="payments.php" class="text-decoration-none">

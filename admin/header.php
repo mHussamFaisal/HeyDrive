@@ -179,6 +179,9 @@ html, body { overflow-x: hidden; max-width: 100vw; }
         <a href="settings_roles.php"        class="nav-link <?= $cur==='settings_roles.php'?'active':'' ?>">
           <i class="fas fa-user-shield"></i> Roles &amp; Permissions
         </a>
+        <a href="vehicle_types.php"          class="nav-link <?= $cur==='vehicle_types.php'?'active':'' ?>">
+          <i class="fas fa-car"></i> Types of Vehicles
+        </a>
         <a href="settings_widget.php"       class="nav-link <?= $cur==='settings_widget.php'?'active':'' ?>">
           <i class="fas fa-code"></i> Web Widget &amp; Integration
         </a>
