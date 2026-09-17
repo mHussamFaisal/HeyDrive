@@ -140,25 +140,29 @@ require_once 'header.php';
   </div>
 </div>
 
-<!-- Table Card -->
+<!-- Table Card with Horizontal Scroll -->
+<div class="d-flex justify-content-between align-items-center mb-2 px-1">
+  <small class="text-muted"><i class="fas fa-arrows-left-right me-1 text-warning"></i> <strong>Horizontal Scroll enabled:</strong> Scroll sideways to view all fleet columns</small>
+</div>
+
 <div class="card border-0 shadow-sm rounded-3">
   <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+    <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%;">
+      <table class="table table-hover align-middle mb-0" style="min-width: 1450px; white-space: nowrap;">
         <thead class="table-light small text-muted text-uppercase">
           <tr>
-            <th class="ps-3" style="width: 80px;">Actions</th>
-            <th style="width: 120px;">Image</th>
-            <th>Name</th>
-            <th>Driver</th>
-            <th>Services</th>
-            <th>Hourly rate</th>
-            <th>Capacity</th>
-            <th>Booking option</th>
-            <th>Default</th>
-            <th>Active</th>
-            <th>Ordering</th>
-            <th class="pe-3">Display</th>
+            <th class="ps-3" style="width: 90px; min-width: 90px;">Actions</th>
+            <th style="width: 130px; min-width: 130px;">Image</th>
+            <th style="min-width: 140px;">Name</th>
+            <th style="min-width: 100px;">Driver</th>
+            <th style="min-width: 100px;">Services</th>
+            <th style="min-width: 120px;">Hourly rate</th>
+            <th style="min-width: 250px;">Capacity</th>
+            <th style="min-width: 140px;">Booking option</th>
+            <th style="min-width: 100px;">Default</th>
+            <th style="min-width: 90px;">Active</th>
+            <th style="min-width: 100px;">Ordering</th>
+            <th class="pe-3" style="min-width: 160px;">Display</th>
           </tr>
         </thead>
         <tbody class="small">
@@ -205,7 +209,7 @@ require_once 'header.php';
             </td>
 
             <!-- Name -->
-            <td class="fw-bold"><?= htmlspecialchars($vt['name']) ?></td>
+            <td class="fw-bold fs-6 text-dark"><?= htmlspecialchars($vt['name']) ?></td>
 
             <!-- Driver -->
             <td class="text-muted">All</td>
@@ -214,7 +218,7 @@ require_once 'header.php';
             <td class="text-muted">All</td>
 
             <!-- Hourly rate -->
-            <td><?= number_format($vt['hourly_rate'] ?? 0, 0) ?></td>
+            <td class="fw-semibold">&pound;<?= number_format($vt['hourly_rate'] ?? 0, 0) ?></td>
 
             <!-- Capacity list -->
             <td>
