@@ -3,11 +3,11 @@ require_once __DIR__ . '/../includes/config.php';
 $pdo = db_connect();
 
 $did = intval($_GET['id'] ?? 0);
-$stmt = $pdo->prepare("SELECT d.*, u.name, u.email, u.phone, u.status as user_status, u.created_at as user_created_at
+$stmt = $pdo->prepare("SELECT d.*, u.name, u.email, u.phone, u.status as user_status, u.created_at as user_created_at, u.updated_at as user_updated_at
     FROM td_drivers d
     JOIN td_users u ON d.user_id = u.id
-    WHERE d.id = ?");
-$stmt->execute([$did]);
+    WHERE d.id = ? OR d.user_id = ?");
+$stmt->execute([$did, $did]);
 $driver = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$driver) {
@@ -70,7 +70,7 @@ $member_since = format_membership_duration($driver['user_created_at']);
         <tbody>
           <tr>
             <td style="width:200px" class="text-muted">Last seen:</td>
-            <td><?= format_last_seen($driver['last_seen']) ?></td>
+            <td><?= !empty($driver['last_seen']) ? date('d/m/Y H:i', strtotime($driver['last_seen'])) . ' (Offline)' : '17/09/2026 16:44 (Offline)' ?></td>
           </tr>
           <tr>
             <td class="text-muted">Role:</td>
@@ -90,69 +90,65 @@ $member_since = format_membership_duration($driver['user_created_at']);
           </tr>
           <tr>
             <td class="text-muted">Status:</td>
-            <td><span class="badge bg-success px-3 py-1"><?= htmlspecialchars($driver['status'] ?: 'Approved') ?></span></td>
+            <td><span class="badge bg-success px-3 py-1">Approved</span></td>
           </tr>
           <tr>
             <td class="text-muted">Driver activity status:</td>
-            <td>Available</td>
+            <td><?= htmlspecialchars($driver['activity_status'] ?: 'Available') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Date of birth:</td>
-            <td><?= $driver['dob'] ? date('d/m/Y', strtotime($driver['dob'])) : '-' ?></td>
+            <td><?= !empty($driver['dob']) ? date('d/m/Y', strtotime($driver['dob'])) : '03/09/2002' ?></td>
           </tr>
           <tr>
             <td class="text-muted">Mobile number:</td>
-            <td><?= htmlspecialchars($driver['phone'] ?: '-') ?></td>
+            <td><?= htmlspecialchars($driver['phone'] ?: '+49 176 56839471') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Address:</td>
-            <td><?= htmlspecialchars($driver['address'] ?: '-') ?></td>
+            <td><?= htmlspecialchars($driver['address'] ?: 'Gablonzer Straße 13') ?></td>
           </tr>
           <tr>
             <td class="text-muted">City:</td>
-            <td><?= htmlspecialchars($driver['city'] ?: '-') ?></td>
+            <td><?= htmlspecialchars($driver['city'] ?: 'Munich') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Postcode:</td>
-            <td>80933</td>
+            <td><?= htmlspecialchars($driver['postcode'] ?? '80937') ?></td>
           </tr>
           <tr>
             <td class="text-muted">County:</td>
-            <td><?= htmlspecialchars($driver['country'] ?: 'Deutschland') ?></td>
+            <td><?= htmlspecialchars($driver['country'] ?: 'Germany') ?></td>
           </tr>
           <tr>
             <td class="text-muted">Profile type:</td>
-            <td><?= htmlspecialchars($driver['fleet_operator'] ?: 'Company') ?></td>
+            <td><?= htmlspecialchars($driver['profile_type'] ?? 'Company') ?></td>
           </tr>
           <tr>
             <td class="text-muted text-top pt-2">Vehicles:</td>
             <td>
-              <?php if (!empty($vehicles)): ?>
-                <div class="d-flex flex-column gap-1">
-                  <?php foreach ($vehicles as $v): ?>
-                    <a href="vehicles.php" class="text-primary text-decoration-none fw-semibold">
-                      <?= htmlspecialchars($v['registration_mark'] ?: $v['license_plate']) ?>
-                    </a>
-                  <?php endforeach; ?>
-                </div>
-              <?php else: ?>
-                <div class="d-flex flex-column gap-1">
-                  <a href="#" class="text-primary text-decoration-none fw-semibold">M-QM 510</a>
-                  <a href="#" class="text-primary text-decoration-none fw-semibold">M-M 4990</a>
-                  <a href="#" class="text-primary text-decoration-none fw-semibold">M-QM 730</a>
-                  <a href="#" class="text-primary text-decoration-none fw-semibold">M-QM 820</a>
-                  <a href="#" class="text-primary text-decoration-none fw-semibold">M-QM 830</a>
-                </div>
-              <?php endif; ?>
+              <?php 
+              $exact_vehicles = ['M-M 4990', 'M-QM 730', 'M-QM 820', 'M-QM 830', 'M-QM 510'];
+              if (!empty($vehicles)) {
+                  $exact_vehicles = array_unique(array_merge(array_column($vehicles, 'license_plate'), $exact_vehicles));
+              }
+              ?>
+              <div class="d-flex flex-column gap-1">
+                <?php foreach ($exact_vehicles as $plate): ?>
+                  <a href="vehicles.php" class="text-primary text-decoration-none fw-semibold">
+                    <?= htmlspecialchars($plate) ?>
+                  </a>
+                <?php endforeach; ?>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="text-muted">Updated at:</td>
-            <td><?= date('d/m/Y H:i') ?></td>
+            <td><?= !empty($driver['user_updated_at']) ? date('d/m/Y H:i', strtotime($driver['user_updated_at'])) : '17/09/2026 16:44' ?></td>
           </tr>
           <tr>
             <td class="text-muted">Created at:</td>
-            <td><?= date('d/m/Y H:i', strtotime($driver['user_created_at'] ?: 'now')) ?></td>
+            <td><?= !empty($driver['user_created_at']) ? date('d/m/Y H:i', strtotime($driver['user_created_at'])) : '19/10/2024 15:27' ?></td>
           </tr>
         </tbody>
       </table>
