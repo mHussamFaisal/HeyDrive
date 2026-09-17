@@ -48,6 +48,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
       'settings_roles.php','settings_widget.php','payments.php'
   ];
   $on_settings = in_array($cur, $settings_pages);
+  $on_users    = in_array($cur, ['users.php', 'drivers.php', 'driver_edit.php', 'driver_view.php']);
   // Detect current booking tab from URL
   $cur_tab = $_GET['tab'] ?? 'latest';
   ?>
@@ -106,9 +107,24 @@ html, body { overflow-x: hidden; max-width: 100vw; }
       <i class="fas fa-broadcast-tower"></i> Dispatch
     </a>
 
-    <a href="drivers.php" class="nav-link <?= $cur==='drivers.php'?'active':'' ?>">
-      <i class="fas fa-id-badge"></i> Drivers
+    <!-- Users collapsible -->
+    <a href="#usersMenu"
+       class="nav-link d-flex justify-content-between align-items-center <?= $on_users?'active':'' ?>"
+       data-bs-toggle="collapse" data-bs-target="#usersMenu"
+       aria-expanded="<?= $on_users?'true':'false' ?>">
+      <span><i class="fas fa-users"></i> Users</span>
+      <i class="fas fa-chevron-down small"></i>
     </a>
+    <div class="collapse <?= $on_users?'show':'' ?>" id="usersMenu">
+      <nav class="nav flex-column sub-nav ms-2 border-start border-secondary ps-1">
+        <a href="users.php" class="nav-link <?= ($cur==='users.php' && empty($_GET['role']) && empty($_GET['tab']))?'active':'' ?>">All Users</a>
+        <a href="users.php?role=customer" class="nav-link <?= ($cur==='users.php' && ($_GET['role']??'')==='customer')?'active':'' ?>">Customers</a>
+        <a href="drivers.php" class="nav-link <?= in_array($cur, ['drivers.php','driver_edit.php','driver_view.php'])?'active':'' ?>">Drivers</a>
+        <a href="users.php?role=fleet_operator" class="nav-link <?= ($cur==='users.php' && ($_GET['role']??'')==='fleet_operator')?'active':'' ?>">Fleet Operators</a>
+        <a href="users.php?role=admin" class="nav-link <?= ($cur==='users.php' && ($_GET['role']??'')==='admin')?'active':'' ?>">Admins</a>
+        <a href="users.php?tab=deletion_requests" class="nav-link <?= ($cur==='users.php' && ($_GET['tab']??'')==='deletion_requests')?'active':'' ?>">Deletion Requests</a>
+      </nav>
+    </div>
 
     <a href="vehicles.php" class="nav-link <?= $cur==='vehicles.php'?'active':'' ?>">
       <i class="fas fa-car"></i> Vehicles
