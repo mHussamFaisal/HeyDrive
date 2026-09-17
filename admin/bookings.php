@@ -640,13 +640,16 @@ document.addEventListener('DOMContentLoaded', function() {
         <tbody class="align-middle">
           <?php foreach ($bookings as $b): ?>
           <tr style="border-bottom: 1px solid #f2f2f2;">
-            <!-- 1. Actions (Eye button + dropdown) -->
+            <!-- 1. Actions (Split button [ Eye | Dropdown ]) -->
             <td class="ps-2">
-              <div class="dropdown">
-                <button class="btn btn-sm btn-light border dropdown-toggle py-0 px-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#6c757d; font-size:12px;">
-                  <i class="fas fa-eye"></i>
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-sm btn-light border py-0 px-2 text-muted" data-bs-toggle="modal" data-bs-target="#viewModal<?=$b['id']?>" title="View Details">
+                  <i class="fas fa-eye" style="font-size:11px;"></i>
                 </button>
-                <ul class="dropdown-menu shadow-sm border-0">
+                <button type="button" class="btn btn-sm btn-light border dropdown-toggle dropdown-toggle-split py-0 px-1 text-muted" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:11px;">
+                  <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu shadow-sm border-0" style="font-size:13px;">
                   <li><a class="dropdown-item" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#viewModal<?=$b['id']?>"><i class="fas fa-eye text-primary me-2"></i>View Details</a></li>
                   <li><a class="dropdown-item" href="javascript:void(0)" onclick='populateEditModal(<?= json_encode($b) ?>)'><i class="fas fa-edit text-info me-2"></i>Edit</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -680,14 +683,20 @@ document.addEventListener('DOMContentLoaded', function() {
             <!-- 6. Status -->
             <td>
               <?php
-              $scolor = 'secondary';
               $st = strtolower($b['status'] ?? '');
-              if ($st === 'completed') $scolor = 'success';
-              elseif ($st === 'confirmed') $scolor = 'primary" style="background:#5c768d !important;';
-              elseif ($st === 'pending') $scolor = 'warning text-dark';
-              elseif ($st === 'cancelled') $scolor = 'danger';
+              if ($st === 'completed') {
+                  $badge_bg = '#10b981';
+              } elseif ($st === 'confirmed') {
+                  $badge_bg = '#5c7cfa';
+              } elseif ($st === 'pending') {
+                  $badge_bg = '#f59e0b';
+              } elseif ($st === 'cancelled') {
+                  $badge_bg = '#ef4444';
+              } else {
+                  $badge_bg = '#6b7280';
+              }
               ?>
-              <span class="badge bg-<?=$scolor?> px-2 py-1"><?= ucfirst($b['status'] ?: 'Confirmed') ?></span>
+              <span class="badge rounded-pill px-2 py-1" style="background: <?=$badge_bg?>; font-weight:500; font-size:11.5px;"><?= ucfirst($b['status'] ?: 'Confirmed') ?></span>
             </td>
 
             <!-- 7. Payments -->
@@ -696,18 +705,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 $is_paid = (strtolower($b['payment_status']??'') === 'paid') || (stripos($b['payment_details']??'', 'paid') !== false && stripos($b['payment_details']??'', 'unpaid') === false);
               ?>
               <?php if ($is_paid): ?>
-                <span class="text-success fw-bold">Paid</span> <i class="fas fa-eye text-muted small ms-1"></i>
+                <span class="text-dark fw-semibold" style="font-size:12.5px;">Paid</span> <i class="fas fa-eye text-muted small ms-1" style="opacity:0.6;"></i>
               <?php else: ?>
-                <span class="text-danger fw-bold">Unpaid</span> <i class="fas fa-eye text-muted small ms-1"></i>
+                <span class="text-danger fw-bold" style="font-size:12.5px;">Unpaid</span> <i class="fas fa-eye text-muted small ms-1" style="opacity:0.6;"></i>
                 <?php if (!empty($b['payment_details'])): ?>
-                  <br><small style="color:#f5a623;" class="fw-semibold">€<?= number_format(floatval($b['fare']), 0) ?> (<?= htmlspecialchars($b['payment_details']) ?>)</small>
+                  <br><span style="color:#d97706; font-size:11px; font-weight:600;">€<?= number_format(floatval($b['fare']), 0) ?> (<?= htmlspecialchars($b['payment_details']) ?>) - Pending</span>
                 <?php endif; ?>
               <?php endif; ?>
             </td>
 
             <!-- 8. Fleet operator -->
             <td>
-              <?= !empty($b['fleet_operator']) ? htmlspecialchars($b['fleet_operator']) : '<span class="text-muted">Assign fleet +</span>' ?>
+              <?= !empty($b['fleet_operator']) ? htmlspecialchars($b['fleet_operator']) : '<a href="javascript:void(0)" class="text-dark text-decoration-none fw-semibold" style="font-size:12.5px;">Assign fleet <span class="fw-bold">+</span></a>' ?>
             </td>
 
             <!-- 9. Fleet income -->
@@ -717,7 +726,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <!-- 10. Driver -->
             <td class="fw-semibold">
-              <?= !empty($b['driver_name']) && $b['driver_name'] !== '—' ? htmlspecialchars($b['driver_name']) : '<span class="text-muted">Assign driver +</span>' ?>
+              <?= !empty($b['driver_name']) && $b['driver_name'] !== '—' ? htmlspecialchars($b['driver_name']) : '<a href="javascript:void(0)" class="text-dark text-decoration-none fw-semibold" style="font-size:12.5px;">Assign driver <span class="fw-bold">+</span></a>' ?>
             </td>
 
             <!-- 11. Vehicle -->
