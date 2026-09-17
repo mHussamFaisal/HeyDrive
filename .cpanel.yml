@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/versjspr/public_html
+    - export DEPLOYPATH=/home/versjspr/taxisdispatch.com
     - /bin/cp -R * $DEPLOYPATH
