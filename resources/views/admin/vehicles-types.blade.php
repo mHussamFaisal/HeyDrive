@@ -18,11 +18,11 @@
       <a href="#" class="btn btn-default btn-sm pull-right btnFilters" title="Search">
         <i class="fa fa-search"></i>
       </a>
-        @permission('admin.vehicle_types.create')
+        
       <a href="#" onclick="updateRecord(); return false;" class="btn btn-success btn-sm pull-right btnAdd">
         <i class="fa fa-plus"></i> <span>Add new</span>
       </a>
-        @endpermission
+        
       <h3>Types of Vehicles</h3>
 
     </div>

@@ -961,14 +961,11 @@ $checkVehicleDocuments = App\Helpers\AdminHelper::checkVehicleDocuments();
                             @endif
                             @endpermission
 
-                            @permission('admin.vehicle_types.index')
                             <li @if( Route::is('admin.vehicles-types.index') ) class="active" @endif>
                                 <a href="{{ route('admin.vehicles-types.index') }}">
-                                    {{-- <i class="fa fa-car"></i>  --}}
                                     <span>Types of Vehicles</span>
                                 </a>
                             </li>
-                            @endpermission
 
                             @permission('admin.settings.users.index')
                             <li @if( Route::is('admin.config.users') ) class="active" @endif>
